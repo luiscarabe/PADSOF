@@ -1,4 +1,4 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.exercise;
 
 public abstract class MUQuestion extends Question{
 	private Option answers[];

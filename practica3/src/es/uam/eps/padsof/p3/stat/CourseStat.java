@@ -1,4 +1,4 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.stat;
 
 public class CourseStat {
 	private double averageMark;

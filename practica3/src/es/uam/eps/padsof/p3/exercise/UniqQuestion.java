@@ -1,4 +1,4 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.exercise;
 
 public class UniqQuestion extends MUQuestion{
 	private Option solution;

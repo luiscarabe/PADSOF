@@ -1,4 +1,4 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.exercise;
 
 public class OpenQuestion extends Question{
 	private Option solution[];

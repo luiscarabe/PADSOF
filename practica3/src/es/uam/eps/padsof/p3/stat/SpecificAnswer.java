@@ -1,4 +1,7 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.stat;
+
+import es.uam.eps.padsof.p3.exercise.Option;
+import es.uam.eps.padsof.p3.exercise.Question;
 
 public class SpecificAnswer {
 	private Question question;

@@ -1,4 +1,7 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.stat;
+
+import es.uam.eps.padsof.p3.exercise.Exercise;
+import es.uam.eps.padsof.p3.user.Student;
 
 public class Answer {
 	private Exercise exercise;

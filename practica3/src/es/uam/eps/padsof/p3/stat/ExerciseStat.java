@@ -1,4 +1,6 @@
-package es.uam.eps.padsof.p3;
+package es.uam.eps.padsof.p3.stat;
+
+import es.uam.eps.padsof.p3.exercise.Exercise;
 
 public class ExerciseStat {
 	private int averageMark;
