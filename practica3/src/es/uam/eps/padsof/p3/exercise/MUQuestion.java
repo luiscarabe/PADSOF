@@ -1,36 +1,84 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.util.*;
+
 public abstract class MUQuestion extends Question{
-	private Option answers[];
+	private List<Option> answers;
 	private int numAns;
 	private boolean randomOrder;
-	
-	
-	public MUQuestion(String title, int weight, Option[] answers, int numAns, boolean randomOrder) {
+	/**
+	 * @param title
+	 * @param weight
+	 * @param answers
+	 * @param numAns
+	 * @param randomOrder
+	 */
+	public MUQuestion(String title, int weight, int numAns, boolean randomOrder) {
 		super(title, weight);
-		this.answers = answers;
+		this.answers =  new ArrayList<Option>();
 		this.numAns = numAns;
 		this.randomOrder = randomOrder;
 	}
-	public Option[] getAnswers() {
+	/**
+	 * @return the answers
+	 */
+	public List<Option> getAnswers() {
 		return answers;
 	}
-	public void setAnswers(Option[] answers) {
+	/**
+	 * @param answers the answers to set
+	 */
+	public void setAnswers(List<Option> answers) {
 		this.answers = answers;
 	}
+	/**
+	 * @return the numAns
+	 */
 	public int getNumAns() {
 		return numAns;
 	}
+	/**
+	 * @param numAns the numAns to set
+	 */
 	public void setNumAns(int numAns) {
 		this.numAns = numAns;
 	}
-
+	/**
+	 * @return the randomOrder
+	 */
 	public boolean isRandomOrder() {
 		return randomOrder;
 	}
-
+	/**
+	 * @param randomOrder the randomOrder to set
+	 */
 	public void setRandomOrder(boolean randomOrder) {
 		this.randomOrder = randomOrder;
+	}
+	
+	/**
+	 * Method to add an option
+	 * @param sol
+	 */
+	
+	public void addOption(String sol){
+		Option opt;
+		opt = new Option(sol);
+		this.answers.add(opt);
+	}
+
+	/**
+	 * Method to delete an option
+	 * @param sol
+	 * @return true if it has been succesfully deleted, false if not
+	 */
+	
+	public boolean deleteOption(Option sol){
+		if(this.answers.contains(sol)){
+			this.answers.remove(sol);
+			return true;
+		}
+		return false;
 	}
 	
 }
