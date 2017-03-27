@@ -1,9 +1,15 @@
-package es.uam.eps.padsof.p3.stat;
+ package es.uam.eps.padsof.p3.stat;
+
+import java.io.Serializable;
 
 import es.uam.eps.padsof.p3.course.Course;
 import es.uam.eps.padsof.p3.user.Student;
 
-public class CMark {
+public class CMark implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double courseMark;
 	private Course course;
 	private Student student;

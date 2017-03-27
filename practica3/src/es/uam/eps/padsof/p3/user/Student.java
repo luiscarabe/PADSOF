@@ -9,6 +9,10 @@ import es.uam.eps.padsof.p3.stat.Answer;
 
 
 public class Student extends User{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Answer> answers;
 	private List<Course> expelledCourses;
 	private List<Course> enrolledCourses;

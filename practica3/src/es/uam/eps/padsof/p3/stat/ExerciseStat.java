@@ -1,10 +1,16 @@
 package es.uam.eps.padsof.p3.stat;
 
+import java.io.Serializable;
+
 import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.exercise.Question;
 import es.uam.eps.padsof.p3.stat.SpecificAnswer;
 
-public class ExerciseStat {
+public class ExerciseStat implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int[] qAnswered;
 	private int[] wrongAns;
 	private int[] rightAns;

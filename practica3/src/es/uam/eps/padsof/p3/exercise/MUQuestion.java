@@ -2,7 +2,11 @@ package es.uam.eps.padsof.p3.exercise;
 
 import java.util.*;
 
-public abstract class MUQuestion extends Question{
+public abstract class MUQuestion extends Question {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Option> answers;
 	private int numAns;
 	private boolean randomOrder;

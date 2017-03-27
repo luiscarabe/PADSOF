@@ -1,6 +1,10 @@
 package es.uam.eps.padsof.p3.course;
 
 public class Note extends CourseElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String text;
 
 	/**

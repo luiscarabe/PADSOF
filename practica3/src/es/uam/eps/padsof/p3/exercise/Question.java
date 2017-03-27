@@ -1,8 +1,13 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Question {
+public abstract class Question implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private double weight;
 	private Exercise exer;

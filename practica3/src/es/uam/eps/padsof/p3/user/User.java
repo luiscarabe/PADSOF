@@ -1,6 +1,12 @@
 package es.uam.eps.padsof.p3.user;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String email;
 	private String password;

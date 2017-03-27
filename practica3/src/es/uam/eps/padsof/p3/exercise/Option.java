@@ -1,6 +1,12 @@
 package es.uam.eps.padsof.p3.exercise;
 
-public class Option {
+import java.io.Serializable;
+
+public class Option implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String option;
 
 	/**

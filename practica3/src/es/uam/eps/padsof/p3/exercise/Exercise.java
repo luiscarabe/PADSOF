@@ -10,7 +10,11 @@ import es.uam.eps.padsof.p3.stat.SpecificAnswer;
 import es.uam.eps.padsof.p3.user.Student;
 
 
-public class Exercise extends CourseElement {
+public class Exercise extends CourseElement{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double weight;
 	private double penalty;
 	private int numQues;

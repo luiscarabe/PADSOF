@@ -6,6 +6,10 @@ import java.util.*;
 
 public class Professor extends User {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Course> allCourses;
 	
 	/**
@@ -57,7 +61,7 @@ public class Professor extends User {
 	 * @param a
 	 * @param bool
 	 */
-	public void acceptApplication(Application a, boolean bool){
+	public void acceptApplication(Application a, boolean bool) throws Exception{
 		if(bool == true){
 			a.acceptApplication();
 		}else {
@@ -70,18 +74,20 @@ public class Professor extends User {
 	 * @param s Student to expel
 	 * @param c Course
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean expellStudent(Student s, Course c){
+	public boolean expellStudent(Student s, Course c) throws Exception{
 		return c.expellStudent(s);
 	}
 	
 	/**
-	 * Method that allows the professor to readmit a student in a course
-	 * @param s Student to readmit
+	 * Method that allows the professor to re-admit a student in a course
+	 * @param s Student to re-admit
 	 * @param c Course
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean readmitStudent(Student s, Course c){
+	public boolean readmitStudent(Student s, Course c) throws Exception{
 		return c.readmitStudent(s);
 	}
 	

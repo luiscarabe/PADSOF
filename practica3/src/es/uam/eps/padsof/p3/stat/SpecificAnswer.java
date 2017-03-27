@@ -2,9 +2,15 @@ package es.uam.eps.padsof.p3.stat;
 
 import es.uam.eps.padsof.p3.exercise.Option;
 import es.uam.eps.padsof.p3.exercise.Question;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class SpecificAnswer {
+public class SpecificAnswer implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Question question;
 	private List<Option> answers;
 	private double markOut10;

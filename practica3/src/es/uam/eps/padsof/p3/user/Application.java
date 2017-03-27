@@ -1,8 +1,17 @@
 package es.uam.eps.padsof.p3.user;
 
+import java.io.Serializable;
+
+import es.uam.eps.padsof.emailconnection.EmailSystem;
+import es.uam.eps.padsof.emailconnection.FailedInternetConnectionException;
+import es.uam.eps.padsof.emailconnection.InvalidEmailAddressException;
 import es.uam.eps.padsof.p3.course.Course;
 
-public class Application {
+public class Application implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Course course;
 	private Student appliedStudent;
 	
@@ -57,9 +66,28 @@ public class Application {
 	/**
 	 * Method that accepts a student in a course
 	 */
-	public void acceptApplication(){
+	public void acceptApplication() throws Exception{
+		String str1, str2;
 		this.getCourse().getEnrolledStudents().add(this.getAppliedStudent());
 		this.getAppliedStudent().getEnrolledCourses().add(this.getCourse());
+		
+		try {
+			str1 = "Accepted into course: " + this.course.getTitle();
+			str2 = "Hello " + this.appliedStudent.getName() + ".\n You have been accepted into course "
+				+ this.course.getTitle() + ". Don't answer this message (auto-generated).";
+			
+			if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
+				throw new FailedInternetConnectionException(str1);
+			}
+			if(EmailSystem.isValidEmailAddr(this.appliedStudent.getEmail())){
+				throw new InvalidEmailAddressException(this.appliedStudent.getEmail());
+			}
+			EmailSystem.send(this.appliedStudent.getEmail(), str1, str2, true);
+		} catch (InvalidEmailAddressException e){
+			System.out.println(e.getMessage());
+		}catch (FailedInternetConnectionException e){
+			System.out.println(e.getMessage());
+		}
 		
 		this.deleteApplication();
 	}
@@ -67,7 +95,26 @@ public class Application {
 	/**
 	 * Method that denies the application for a course
 	 */
-	public void declineApplication(){
+	public void declineApplication() throws Exception{
+		String str1, str2;
+		try {
+			str1 = "Not accepted into course: " + this.course.getTitle();
+			str2 = "Hello " + this.appliedStudent.getName() + ".\n Your application for the course "
+					+ this.course.getTitle() + " has been declined. Don't answer this message (auto-generated).";
+			
+			if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
+				throw new FailedInternetConnectionException(str1);
+			}
+			if(EmailSystem.isValidEmailAddr(this.appliedStudent.getEmail())){
+				throw new InvalidEmailAddressException(this.appliedStudent.getEmail());
+			}
+			EmailSystem.send(this.appliedStudent.getEmail(), str1, str2, true);
+		} catch (InvalidEmailAddressException e){
+			System.out.println(e.getMessage());
+		}catch (FailedInternetConnectionException e){
+			System.out.println(e.getMessage());
+		}
+		
 		this.deleteApplication();
 	}
 }

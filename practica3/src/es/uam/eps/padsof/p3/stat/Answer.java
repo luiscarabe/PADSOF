@@ -1,11 +1,16 @@
 package es.uam.eps.padsof.p3.stat;
 
 import java.util.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.user.Student;
 
-public class Answer {
+public class Answer implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Exercise exercise;
 	private List<SpecificAnswer> specificAnswer;
 	private Student student;

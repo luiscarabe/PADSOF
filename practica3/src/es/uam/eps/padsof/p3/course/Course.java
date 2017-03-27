@@ -2,13 +2,20 @@ package es.uam.eps.padsof.p3.course;
 
 import es.uam.eps.padsof.p3.user.*;
 
+import java.io.Serializable;
 import java.util.*;
 
 import es.uam.eps.padsof.p3.stat.CourseStat;
 import es.uam.eps.padsof.emailconnection.EmailSystem;
+import es.uam.eps.padsof.emailconnection.FailedInternetConnectionException;
+import es.uam.eps.padsof.emailconnection.InvalidEmailAddressException;
 import es.uam.eps.padsof.p3.exercise.*;
 
-public class Course {
+public class Course implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
 	private String desc;
@@ -239,13 +246,33 @@ public class Course {
 	 * @param s Student
 	 * @return true if the student has been expelled false if not
 	 */
-	public boolean expellStudent(Student s){
+	public boolean expellStudent(Student s) throws Exception{
+		String str1, str2;
 		if(this.acceptedStudent(s)){
 			this.enrolledStudents.remove(s);
 			this.expelledStudents.add(s);
 			s.getEnrolledCourses().remove(this);
 			s.getExpelledCourses().add(this);
-			return true;
+			try {
+				str1 = "Expelled from course: " + this.getTitle();
+				str2 = "Hello " + s.getName() + ".\n You have been expelled from course "
+					+ this.getTitle() + ". Don't answer this message (auto-generated).";
+				
+				if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
+					throw new FailedInternetConnectionException(str1);
+				}
+				if(EmailSystem.isValidEmailAddr(s.getEmail())){
+					throw new InvalidEmailAddressException(s.getEmail());
+				}
+				EmailSystem.send(s.getEmail(), str1, str2, true);
+				return true;
+			} catch (InvalidEmailAddressException e){
+				System.out.println(e.getMessage());
+				return false;
+			}catch (FailedInternetConnectionException e){
+				System.out.println(e.getMessage());
+				return false;
+			}
 		}
 		return false;
 	}
@@ -254,20 +281,35 @@ public class Course {
 	 * Method that re-admits a student in a course
 	 * @param s Student to re-admit
 	 * @return true if the student has been re-admitted false if not
+	 * @throws Exception 
 	 */
-	public boolean readmitStudent(Student s){
+	public boolean readmitStudent(Student s) throws Exception{
 		String str1, str2;
-		boolean aux;
 		if(this.expelledStudents.contains(s)){
 			this.expelledStudents.remove(s);
 			this.enrolledStudents.add(s);
 			s.getExpelledCourses().remove(this);
 			s.getEnrolledCourses().add(this);
-			str1 = "Re-admitted to course: " + this.getTitle();
-			str2 = "Hello " + s.getName() + ". You have been re-admited to the course "
+			try {
+				str1 = "Re-admitted to course: " + this.getTitle();
+				str2 = "Hello " + s.getName() + ".\n You have been re-admited to the course "
 					+ this.getTitle() + ". Don't answer this message (auto-generated).";
-			aux = EmailSystem.send(s.getEmail(), str1, str2);
-			return true;
+				
+				if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
+					throw new FailedInternetConnectionException(str1);
+				}
+				if(EmailSystem.isValidEmailAddr(s.getEmail())){
+					throw new InvalidEmailAddressException(s.getEmail());
+				}
+				EmailSystem.send(s.getEmail(), str1, str2, true);
+				return true;
+			} catch (InvalidEmailAddressException e){
+				System.out.println(e.getMessage());
+				return false;
+			}catch (FailedInternetConnectionException e){
+				System.out.println(e.getMessage());
+				return false;
+			}
 		}
 		return false;
 	}

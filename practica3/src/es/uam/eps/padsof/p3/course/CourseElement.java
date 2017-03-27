@@ -1,6 +1,17 @@
 package es.uam.eps.padsof.p3.course;
 
-public abstract class CourseElement {
+import java.io.Serializable;
+
+import es.uam.eps.padsof.emailconnection.EmailSystem;
+import es.uam.eps.padsof.emailconnection.FailedInternetConnectionException;
+import es.uam.eps.padsof.emailconnection.InvalidEmailAddressException;
+import es.uam.eps.padsof.p3.user.Student;
+
+public abstract class CourseElement implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
 	private String desc;
@@ -92,7 +103,30 @@ public abstract class CourseElement {
 	 * @param hidden the hidden to set
 	 */
 	public void setHidden(boolean hidden) {
+		String str1, str2;
 		this.hidden = hidden;
+		if(hidden == false){
+			try {
+				for(Student aux : this.getCourse().getEnrolledStudents()){
+					str1 = "New notification at " + this.course.getTitle();
+					str2 = "Hello:\nThere is a new element at " + this.course.getTitle() + ". "
+							+ this.getTitle();
+					
+					if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
+						throw new FailedInternetConnectionException(str1);
+					}
+					if(EmailSystem.isValidEmailAddr(aux.getEmail())){
+						throw new InvalidEmailAddressException(aux.getEmail());
+					}
+					EmailSystem.send(aux.getEmail(), str1, str2, true);
+				}
+				
+			} catch (InvalidEmailAddressException e){
+				System.out.println(e.getMessage());
+			}catch (FailedInternetConnectionException e){
+				System.out.println(e.getMessage());
+			}
+		}
 	}
 
 

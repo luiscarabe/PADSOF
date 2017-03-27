@@ -5,6 +5,10 @@ import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.stat.Answer;
 
 public class Unit extends CourseElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<CourseElement> courseElements;
 
 	/**

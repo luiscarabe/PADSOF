@@ -9,7 +9,11 @@ import java.util.*;
 import java.io.*;
 
 
-public class Educagram {
+public class Educagram implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Course> courses;
 	private List<Student> students;
 	private Professor professor;
