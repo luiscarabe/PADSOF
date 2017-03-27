@@ -1,10 +1,12 @@
 package es.uam.eps.padsof.p3.educagram;
 
+import es.uam.eps.padsof.emailconnection.EmailSystem;
 import es.uam.eps.padsof.p3.course.Course;
 import es.uam.eps.padsof.p3.user.Professor;
 import es.uam.eps.padsof.p3.user.User;
 import es.uam.eps.padsof.p3.user.Student;
 import java.util.*;
+import java.io.*;
 
 
 public class Educagram {
@@ -115,4 +117,38 @@ public class Educagram {
 		}
 		return null;
 	}	
+	
+	/**
+	 * Method that reads the information of the students at the app from a file and saves it
+	 * @return true if 
+	 * @throws java.io.IOException
+	 */
+	public boolean readFile() throws java.io.IOException{
+		String cadena;
+		String[] str = new String[5];
+		StringTokenizer tokens;
+		int i;
+		
+		FileReader f = new FileReader("Educagram.txt");
+	    BufferedReader b = new BufferedReader(f);
+	    b.readLine();
+	    
+
+	    while((cadena = b.readLine())!=null) {
+	        tokens = new StringTokenizer(cadena, ";");
+	        i = 0;
+	        while(tokens.hasMoreTokens() && i < 5){
+	        	str[i] = tokens.nextToken();
+	        }
+	        if(EmailSystem.isValidEmailAddr(str[2])){
+	        	Student s = new Student(str[0] + " " + str[1], str[2], str[4]);
+		        this.students.add(s);
+	        }
+	    }
+	    b.close();
+	    if(this.students.isEmpty()){
+	    	return false;
+	    }
+	    return true;
+	}
 }

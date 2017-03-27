@@ -5,6 +5,7 @@ import es.uam.eps.padsof.p3.user.*;
 import java.util.*;
 
 import es.uam.eps.padsof.p3.stat.CourseStat;
+import es.uam.eps.padsof.emailconnection.EmailSystem;
 import es.uam.eps.padsof.p3.exercise.*;
 
 public class Course {
@@ -255,11 +256,17 @@ public class Course {
 	 * @return true if the student has been re-admitted false if not
 	 */
 	public boolean readmitStudent(Student s){
+		String str1, str2;
+		boolean aux;
 		if(this.expelledStudents.contains(s)){
 			this.expelledStudents.remove(s);
 			this.enrolledStudents.add(s);
 			s.getExpelledCourses().remove(this);
 			s.getEnrolledCourses().add(this);
+			str1 = "Re-admitted to course: " + this.getTitle();
+			str2 = "Hello " + s.getName() + ". You have been re-admited to the course "
+					+ this.getTitle() + ". Don't answer this message (auto-generated).";
+			aux = EmailSystem.send(s.getEmail(), str1, str2);
 			return true;
 		}
 		return false;

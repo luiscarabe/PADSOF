@@ -1,11 +1,8 @@
 package es.uam.eps.padsof.p3.course;
 
 import java.util.*;
-import java.time.*;
 import es.uam.eps.padsof.p3.exercise.Exercise;
-import es.uam.eps.padsof.p3.exercise.Question;
 import es.uam.eps.padsof.p3.stat.Answer;
-import es.uam.eps.padsof.p3.stat.ExerciseStat;
 
 public class Unit extends CourseElement {
 	private List<CourseElement> courseElements;
