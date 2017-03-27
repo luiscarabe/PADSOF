@@ -84,14 +84,15 @@ public class SpecificAnswer {
 	 * @return true if it has been successfully calculated, false if not
 	 */
 	
-	public boolean calculateMark(){
+	public void calculateMark(){
 		int flag = 0;
 		if (this.answers.isEmpty()){
-			return false;
+			this.markOut10 = 0;
+			return;
 		}
 		if (this.answers.size() != this.question.getSolution().size()){
 			this.markOut10 = 0-this.question.getExer().getPenalty();;
-			return true;
+			return;
 		}
 		for  (Option o: this.answers){
 			if (!this.question.getSolution().contains(o)){
@@ -100,11 +101,11 @@ public class SpecificAnswer {
 		}
 		if (flag == 1){
 			this.markOut10 = 0-this.question.getExer().getPenalty();
-			return true;
+			return;
 		}
 		else{
 			this.markOut10 = this.question.getWeight()/this.question.getExer().getWeight();
-			return true;
+			return;
 		}
 	}
 	

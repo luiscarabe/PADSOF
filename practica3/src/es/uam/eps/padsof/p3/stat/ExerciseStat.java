@@ -15,11 +15,15 @@ public class ExerciseStat {
 	 * @param exercise
 	 */
 	public ExerciseStat(Exercise exercise) {
+		int i = 0;
 		this.exercise = exercise;
-		this.qAnswered = null;
-		this.wrongAns = null;
-		this.rightAns = null;
-		this.qNotAnswered = null;
+		for (@SuppressWarnings("unused") Question q: exercise.getQuestions()){
+			this.qAnswered[i] = 0;
+			this.qNotAnswered[i] = 0;
+			this.wrongAns[i] = 0;
+			this.rightAns[i] = 0;
+			i++;
+		}
 	}
 
 	/**
@@ -91,11 +95,36 @@ public class ExerciseStat {
 	public void setExercise(Exercise exercise) {
 		this.exercise = exercise;
 	}
+	
+	/**
+	 * Method to fill all the questions stats of the exercise
+	 */
 
 	public void setAll(){
 		int i = 0;
 		for (Question q: this.exercise.getQuestions()){
-			for (SpecificAnswer s: this.exercise.getAnswers().get)
+			for (Answer a: this.exercise.getAnswers()){
+				for (SpecificAnswer s: a.getSpecificAnswer()){
+					if (q.equals(s.getQuestion())){
+						/*We are in a student answer of the question*/
+						if(s.getMarkOut10() > 0){
+							/*The student has answered correctly*/
+							this.rightAns[i] ++;
+							this.qAnswered[i] ++;
+						}
+						else if((s.getMarkOut10() <= 0) && (s.getAnswers() == null)){
+							/*The student has answered wrongly*/
+							this.wrongAns[i]++;
+							this.qAnswered[i] ++;
+						}
+						else{
+							/*The student has not answered*/
+							this.qNotAnswered[i] ++;
+						}
+					}
+				}
+			}
+			i++;
 		}
 	}
 	
