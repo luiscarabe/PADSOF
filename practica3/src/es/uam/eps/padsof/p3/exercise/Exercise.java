@@ -6,6 +6,7 @@ import es.uam.eps.padsof.p3.course.Course;
 import es.uam.eps.padsof.p3.course.CourseElement;
 import es.uam.eps.padsof.p3.stat.ExerciseStat;
 import es.uam.eps.padsof.p3.stat.Answer;
+import es.uam.eps.padsof.p3.stat.SpecificAnswer;
 import es.uam.eps.padsof.p3.user.Student;
 
 
@@ -322,7 +323,8 @@ public class Exercise extends CourseElement {
 		ans = new Answer(this, s, nQues);
 				
 		for(i = 0; i < nQues; i++){
-			ans.getSpecificAnswer().get(i).setQuestion(this.getQuestions().get(i));
+			SpecificAnswer a = new SpecificAnswer(this.questions.get(i));
+			ans.getSpecificAnswer().add(a);
 		}
 		
 		this.answers.add(ans);
