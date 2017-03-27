@@ -97,7 +97,7 @@ public class EducagramTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#signIn(java.lang.String, java.lang.String)}.
+	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#InvalidsignIn(java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	public void testInvalidSignIn() {
