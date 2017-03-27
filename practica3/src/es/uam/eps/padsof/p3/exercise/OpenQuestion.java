@@ -10,8 +10,8 @@ public class OpenQuestion extends Question{
 	 * @param weight
 	 * @param solution
 	 */
-	public OpenQuestion(String title, int weight) {
-		super(title, weight);
+	public OpenQuestion(String title, int weight, Exercise exer) {
+		super(title, weight, exer);
 		this.solution = new ArrayList<Option>();
 	}
 	
@@ -35,10 +35,8 @@ public class OpenQuestion extends Question{
 	 * @param sol
 	 */
 
-	public void addSolution(String sol){
-		Option opt;
-		opt = new Option(sol);
-		this.solution.add(opt);
+	public void setSolution(Option sol){
+		this.solution.add(sol);
 	}
 	
 	/**

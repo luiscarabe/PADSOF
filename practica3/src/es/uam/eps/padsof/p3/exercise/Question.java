@@ -1,18 +1,36 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.util.List;
+
 public abstract class Question {
 	private String title;
-	private int weight;
-	
+	private double weight;
+	private Exercise exer;
+
 	/**
 	 * @param title
 	 * @param weight
 	 */
-	public Question(String title, int weight) {
+	public Question(String title, int weight, Exercise exe) {
 		this.title = title;
 		this.weight = weight;
+		this.exer = exe;
 	}
 
+	/**
+	 * @return the exer
+	 */
+	public Exercise getExer() {
+		return exer;
+	}
+
+	/**
+	 * @param exer the exer to set
+	 */
+	public void setExer(Exercise exer) {
+		this.exer = exer;
+	}
+	
 	/**
 	 * @return the title
 	 */
@@ -30,18 +48,17 @@ public abstract class Question {
 	/**
 	 * @return the weight
 	 */
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
 	/**
 	 * @param weight the weight to set
 	 */
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-	
-	
 
+	public abstract List<Option> getSolution();
 	
 }

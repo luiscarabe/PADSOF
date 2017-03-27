@@ -1,19 +1,24 @@
 package es.uam.eps.padsof.p3.exercise;
 
 import java.util.*;
+import java.time.*;
+import es.uam.eps.padsof.p3.course.Course;
 import es.uam.eps.padsof.p3.course.CourseElement;
 import es.uam.eps.padsof.p3.stat.ExerciseStat;
-import java.time.*;
+import es.uam.eps.padsof.p3.stat.Answer;
+import es.uam.eps.padsof.p3.user.Student;
+
 
 public class Exercise extends CourseElement {
-	private int weight;
-	private int penalty;
+	private double weight;
+	private double penalty;
 	private int numQues;
 	private boolean randomness;
 	private ExerciseStat stats;
 	private List<Question> questions;
 	private LocalDate expDate;
 	private LocalDate startDate;
+ 	private List<Answer> answers;
 	
 	/**
 	 * Constructor of Exercise
@@ -29,44 +34,39 @@ public class Exercise extends CourseElement {
 	 * @param startDate
 	 * @param expDate
 	 */
-	public Exercise(String title, String desc, boolean hidden, int weight, int penalty, int numQues, boolean randomness,
-			ExerciseStat stats, ArrayList<Question> questions, LocalDate startDate, LocalDate expDate) {
-		super(title, desc, hidden);
-		this.weight = weight;
-		this.penalty = penalty;
-		this.randomness = randomness;
-		this.numQues = numQues;
-		this.stats = stats;
-		this.questions = questions;
-		this.startDate = startDate;
-		this.expDate = expDate;
+	public Exercise(Course course) {
+		super("nada", "nada", true, course);
+		this.questions = new ArrayList<Question>();
+		this.answers = new ArrayList<Answer>();
+		this.startDate = null;
+		this.expDate = null;
 	}
 
 	/**
 	 * @return the weight
 	 */
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
 	/**
 	 * @param weight the weight to set
 	 */
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
 	/**
 	 * @return the penalty
 	 */
-	public int getPenalty() {
+	public double getPenalty() {
 		return penalty;
 	}
 
 	/**
 	 * @param penalty the penalty to set
 	 */
-	public void setPenalty(int penalty) {
+	public void setPenalty(double penalty) {
 		this.penalty = penalty;
 	}
 
@@ -154,8 +154,207 @@ public class Exercise extends CourseElement {
 		this.startDate = startDate;
 	}
 	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+	
+	/* Methods */
 	
 	
+	/**
+	 * Method that informs the professor if an exercise is still modifiable
+	 * @return true if there is any student that has taken the exercise, false if not
+	 */
+	public boolean isModifiable(){
+		if(this.getAnswers().isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that adds a question to an exercise
+	 * @param q question to add
+	 * @return
+	 */
+	public boolean addQuestion(Question q){
+		for(Question aux: this.questions){
+			if(aux.equals(q)){
+				return false;
+			}
+		}
+		this.questions.add(q);
+		q.setExer(this);
+		return true;
+	}
+	
+	
+	/**
+	 * Method that allows professors to delete a question
+	 * @param q: Question
+	 * @return true if the question has been deleted, false if not
+	 */
+	public boolean deleteQuestion(Question q){
+		if(this.getQuestions().contains(q)){
+			this.getQuestions().remove(q);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that allows professors to randomly select the order of question
+	 * @return true if shuffles the questions false if not
+	 */
+	public boolean randomOrder(){
+		if(this.randomness == true){
+			Collections.shuffle(this.questions);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that checks if a date is valid
+	 * @param d date to check
+	 * @return true if it is valid false if not
+	 */
+	public boolean isValidDate(LocalDate d){
+		LocalDate now = LocalDate.now();
+		
+		if(d.isBefore(now)){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Method that checks if a professor can add a start date to an exercise
+	 * @param d date to add
+	 * @return true if it is successfully added false if not
+	 */
+	public boolean addStartDate(LocalDate d){
+		if(this.isValidDate(d)){
+			if(this.expDate != null){
+				if(this.expDate.isBefore(d)){
+					return false;
+				}
+			}
+			this.setStartDate(d);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that checks if a professor can add an expiration date to an exercise
+	 * @param d date to add
+	 * @return true if it is successfully added false if not
+	 */
+	public boolean addExpirationDate(LocalDate d){
+		if(this.isValidDate(d)){
+			this.setStartDate(d);
+
+			if(d.isBefore(this.startDate)){
+				return false;
+			}
+			if(this.expDate != null){
+				if(d.isBefore(this.expDate)){
+					return false;
+				}
+			}
+			this.setExpDate(d);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that notifies students if the exercise is available to take
+	 * @return true if it is false if not
+	 */
+	public boolean canTakeExercise(Student s){
+		LocalDate now = LocalDate.now();
+		
+		if(this.takenExercise(s) == true){
+			return false;
+		}
+		if(now.isAfter(this.startDate) && now.isBefore(this.expDate)){
+			if(this.isHidden() == true){
+				this.setHidden(false);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that informs a student if he/she has taken the exercise
+	 * @param s student that has taken the exercise (or not)
+	 * @return true if the exercise has been taken by the student
+	 */
+	public boolean takenExercise(Student s){
+		
+		for(Answer aux: this.answers){
+			if(aux.getStudent().equals(s)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that allows a student to take an exercise
+	 * @param s student that takes the exercise
+	 * @return Answer if it has been created or null if not
+	 */
+	public Answer takeExercise(Student s){
+		Answer ans;
+		int nQues;
+		int i;
+		
+		nQues = this.getQuestions().size();
+		
+		ans = new Answer(this, s, nQues);
+				
+		for(i = 0; i < nQues; i++){
+			ans.getSpecificAnswer().get(i).setQuestion(this.getQuestions().get(i));
+		}
+		
+		this.answers.add(ans);
+		s.getAnswers().add(ans);
+		
+		return null;
+	}
+	
+	/**
+	 * Method that the student calls before sending his/her answers to cancel them.
+	 * @param a answer associated to a the exercise to cancel
+	 */
+	public void cancelExercise(Answer a){
+		a.getStudent().getAnswers().remove(a);
+		a.getExercise().getAnswers().remove(a);
+		return;
+	}
+	
+	
+	/**
+	 * Method that search the answer to an exercise of a student
+	 * @param s the student of the answer to search
+	 * @return Answer of the student to the exercise or null if he/she hasn't answered the execise
+	 */
+	public Answer searchAnswer(Student s){
+		for(Answer aux: this.getAnswers()){
+			if(aux.getStudent().equals(s)){
+				return aux;
+			}
+		}
+		return null;
+	}
 	
 	
 }

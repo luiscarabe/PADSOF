@@ -1,62 +1,102 @@
 package es.uam.eps.padsof.p3.stat;
 
 import es.uam.eps.padsof.p3.exercise.Exercise;
+import es.uam.eps.padsof.p3.exercise.Question;
+import es.uam.eps.padsof.p3.stat.SpecificAnswer;
 
 public class ExerciseStat {
-	private int averageMark;
-	private int qAnswered;
-	private int wrongAns;
-	private int rightAns;
-	private int qNotAnswered;
+	private int[] qAnswered;
+	private int[] wrongAns;
+	private int[] rightAns;
+	private int[] qNotAnswered;
 	private Exercise exercise;
 	
-	
-	
-	public ExerciseStat(int averageMark, int qAnswered, int wrongAns, int rightAns, int qNotAnswered,
-			Exercise exercise) {
-		this.averageMark = averageMark;
-		this.qAnswered = qAnswered;
-		this.wrongAns = wrongAns;
-		this.rightAns = rightAns;
-		this.qNotAnswered = qNotAnswered;
+	/**
+	 * @param exercise
+	 */
+	public ExerciseStat(Exercise exercise) {
 		this.exercise = exercise;
+		this.qAnswered = null;
+		this.wrongAns = null;
+		this.rightAns = null;
+		this.qNotAnswered = null;
 	}
-	public int getAverageMark() {
-		return averageMark;
-	}
-	public void setAverageMark(int averageMark) {
-		this.averageMark = averageMark;
-	}
-	public int getqAnswered() {
+
+	/**
+	 * @return the qAnswered
+	 */
+	public int[] getqAnswered() {
 		return qAnswered;
 	}
-	public void setqAnswered(int qAnswered) {
+
+	/**
+	 * @param qAnswered the qAnswered to set
+	 */
+	public void setqAnswered(int[] qAnswered) {
 		this.qAnswered = qAnswered;
 	}
-	public int getWrongAns() {
+
+	/**
+	 * @return the wrongAns
+	 */
+	public int[] getWrongAns() {
 		return wrongAns;
 	}
-	public void setWrongAns(int wrongAns) {
+
+	/**
+	 * @param wrongAns the wrongAns to set
+	 */
+	public void setWrongAns(int[] wrongAns) {
 		this.wrongAns = wrongAns;
 	}
-	public int getRightAns() {
+
+	/**
+	 * @return the rightAns
+	 */
+	public int[] getRightAns() {
 		return rightAns;
 	}
-	public void setRightAns(int rightAns) {
+
+	/**
+	 * @param rightAns the rightAns to set
+	 */
+	public void setRightAns(int[] rightAns) {
 		this.rightAns = rightAns;
 	}
-	public int getqNotAnswered() {
+
+	/**
+	 * @return the qNotAnswered
+	 */
+	public int[] getqNotAnswered() {
 		return qNotAnswered;
 	}
-	public void setqNotAnswered(int qNotAnswered) {
+
+	/**
+	 * @param qNotAnswered the qNotAnswered to set
+	 */
+	public void setqNotAnswered(int[] qNotAnswered) {
 		this.qNotAnswered = qNotAnswered;
 	}
+
+	/**
+	 * @return the exercise
+	 */
 	public Exercise getExercise() {
 		return exercise;
 	}
+
+	/**
+	 * @param exercise the exercise to set
+	 */
 	public void setExercise(Exercise exercise) {
 		this.exercise = exercise;
 	}
-	
+
+	public void setAll(){
+		int i = 0;
+		for (Question q: this.exercise.getQuestions()){
+			for (SpecificAnswer s: this.exercise.getAnswers().get)
+		}
+	}
 	
 }

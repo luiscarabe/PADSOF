@@ -13,8 +13,8 @@ public abstract class MUQuestion extends Question{
 	 * @param numAns
 	 * @param randomOrder
 	 */
-	public MUQuestion(String title, int weight, int numAns, boolean randomOrder) {
-		super(title, weight);
+	public MUQuestion(String title, int weight, int numAns, boolean randomOrder, Exercise exer) {
+		super(title, weight, exer);
 		this.answers =  new ArrayList<Option>();
 		this.numAns = numAns;
 		this.randomOrder = randomOrder;
@@ -65,20 +65,10 @@ public abstract class MUQuestion extends Question{
 		Option opt;
 		opt = new Option(sol);
 		this.answers.add(opt);
+		this.numAns ++;
 	}
-
-	/**
-	 * Method to delete an option
-	 * @param sol
-	 * @return true if it has been succesfully deleted, false if not
-	 */
 	
-	public boolean deleteOption(Option sol){
-		if(this.answers.contains(sol)){
-			this.answers.remove(sol);
-			return true;
-		}
-		return false;
-	}
+	public abstract boolean deleteOption(Option o);
+
 	
 }

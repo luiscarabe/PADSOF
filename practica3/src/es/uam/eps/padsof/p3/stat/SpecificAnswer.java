@@ -2,44 +2,110 @@ package es.uam.eps.padsof.p3.stat;
 
 import es.uam.eps.padsof.p3.exercise.Option;
 import es.uam.eps.padsof.p3.exercise.Question;
+import java.util.*;
 
 public class SpecificAnswer {
 	private Question question;
-	private Option option[];
+	private List<Option> answers;
 	private double markOut10;
-	private double num; //numerator
-	
-	public SpecificAnswer(Question question, Option[] option, double markOut10, double num) {
+	/**
+	 * @param question
+	 * @param answers
+	 * @param markOut10
+	 * @param num
+	 */
+	public SpecificAnswer(Question question) {
 		this.question = question;
-		this.option = option;
-		this.markOut10 = markOut10;
-		this.num = num;
+		this.answers = new ArrayList<Option>();
+		this.markOut10 = -1;
 	}
+	/**
+	 * @return the question
+	 */
 	public Question getQuestion() {
 		return question;
 	}
+	/**
+	 * @param question the question to set
+	 */
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
-	public Option[] getOption() {
-		return option;
+	/**
+	 * @return the answers
+	 */
+	public List<Option> getAnswers() {
+		return answers;
 	}
-	public void setOption(Option[] option) {
-		this.option = option;
+	/**
+	 * @param answers the answers to set
+	 */
+	public void setAnswers(List<Option> answers) {
+		this.answers = answers;
 	}
+	/**
+	 * @return the markOut10
+	 */
 	public double getMarkOut10() {
 		return markOut10;
 	}
+	/**
+	 * @param markOut10 the markOut10 to set
+	 */
 	public void setMarkOut10(double markOut10) {
 		this.markOut10 = markOut10;
 	}
-	public double getNum() {
-		return num;
-	}
-	public void setNum(double num) {
-		this.num = num;
+	/**
+	 * Method to choose an option
+	 * @param o
+	 * @return
+	 */
+	
+	public boolean chooseAnswer(Option o){
+		if (this.answers.contains(o)){
+			return false;
+		}
+		this.answers.add(o);
+		return true;
 	}
 	
+	/**
+	 * MEthod to delete an answer
+	 * @param o
+	 */
 	
+	public void deleteAnswer(Option o){
+		if (this.answers.contains(o)){
+			this.answers.remove(o);
+		}
+	}
+	/**
+	 * Method to calculate the mark of a question
+	 * @return true if it has been successfully calculated, false if not
+	 */
+	
+	public boolean calculateMark(){
+		int flag = 0;
+		if (this.answers.isEmpty()){
+			return false;
+		}
+		if (this.answers.size() != this.question.getSolution().size()){
+			this.markOut10 = 0-this.question.getExer().getPenalty();;
+			return true;
+		}
+		for  (Option o: this.answers){
+			if (!this.question.getSolution().contains(o)){
+				flag = 1;
+			}
+		}
+		if (flag == 1){
+			this.markOut10 = 0-this.question.getExer().getPenalty();
+			return true;
+		}
+		else{
+			this.markOut10 = this.question.getWeight()/this.question.getExer().getWeight();
+			return true;
+		}
+	}
 	
 }

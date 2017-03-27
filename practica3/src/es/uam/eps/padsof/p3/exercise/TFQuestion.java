@@ -1,34 +1,35 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.util.*;
+
 public class TFQuestion extends Question {
-	private Option solution;
+	private List<Option> solution;
 
 	/**
 	 * @param title
 	 * @param weight
 	 */
-	public TFQuestion(String title, int weight) {
-		super(title, weight);
+	public TFQuestion(String title, int weight, Exercise exer) {
+		super(title, weight, exer);
 		this.solution = null;
 	}
 
 	/**
 	 * @return the solution
 	 */
-	public Option getSolution() {
+	public List<Option> getSolution() {
 		return solution;
 	}
+
 
 	/**
 	 * 
 	 * @param s
 	 * @return true if created successfully, false if not
 	 */
-	public boolean setSolution(String s) {
-		Option solution;
-		if(s.equals("f") || s.equals("t")){
-			solution = new Option("s");
-			this.solution = solution;
+	public boolean setSolution(Option solution) {
+		if(solution.getOption().equals("f") || solution.getOption().equals("t")){
+			this.solution.add(solution);
 			return true;
 		}
 		

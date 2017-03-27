@@ -76,7 +76,7 @@ public class Educagram {
 	
 	public Course searchCourse(String title){
 		for (Course c: courses){
-			if(c.getTitle() == title){
+			if(c.getTitle().equals(title)){
 				return c;
 			}
 		}
@@ -85,7 +85,7 @@ public class Educagram {
 	
 	public Student searchStudent(String name){
 		for (Student s: students){
-			if (s.getName() == name){
+			if (s.getName().equals(name)){
 				return s;
 			}
 		}
@@ -100,14 +100,14 @@ public class Educagram {
 	 */
 	
 	public User signIn(String email, String psw){
-		if (email == professor.getEmail()){
+		if (professor.getEmail().equals(email)){
 			if (psw == professor.getPassword()){
 				return professor;
 			}
 		}
 		
 		for (Student s: students){
-			if (email == s.getEmail()){
+			if (s.getEmail().equals(email)){
 				if (psw == s.getPassword()){
 					return s;
 				}

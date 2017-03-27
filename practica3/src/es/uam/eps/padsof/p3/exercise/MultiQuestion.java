@@ -14,8 +14,8 @@ public class MultiQuestion extends MUQuestion{
 	 * @param solution
 	 * @param numSol
 	 */
-	public MultiQuestion(String title, int weight, int numAns, boolean randomOrder) {
-		super(title, weight, numAns, randomOrder);
+	public MultiQuestion(String title, int weight, int numAns, boolean randomOrder, Exercise exer) {
+		super(title, weight, numAns, randomOrder, exer);
 		this.solution = new ArrayList<Option>();
 		this.numSol = 0;
 	}
@@ -50,25 +50,32 @@ public class MultiQuestion extends MUQuestion{
 	/**
 	 * Method to add solution
 	 * @param sol
+	 * @return true if added successfully, false if not
 	 */
 	
-	public void addSolution(String sol){
-		Option opt;
-		opt = new Option(sol);
-		this.solution.add(opt);
+	public boolean addSolution(Option o){
+		if (!this.getAnswers().contains(o)){
+			return false;
+		}
+		this.solution.add(o);
 		this.numSol ++;
+		return true;
 	}
 	
 	/**
-	 * Method to remove a solution
+	 * Method to delete an option
 	 * @param sol
 	 * @return true if it has been successfully deleted, false if not
 	 */
 	
-	public boolean deleteSolution(Option sol){
+	public boolean deleteOption(Option sol){
 		if(this.solution.contains(sol)){
 			this.solution.remove(sol);
 			this.numSol --;
+		}
+		if(this.getAnswers().contains(sol)){
+			this.getAnswers().remove(sol);
+			this.setNumAns(this.getNumAns()-1);
 			return true;
 		}
 		return false;

@@ -121,6 +121,11 @@ public class Student extends User{
 		}
 	}
 	
+	/**
+	 * Method that allows a student to get his/her course mark
+	 * @param c course of the mark to see
+	 * @return double personal mark of the course out of 10
+	 */
 	public double seeCMark(Course c){
 		for(CMark aux: this.getcMarks()){
 			if(c.equals(aux.getCourse())){

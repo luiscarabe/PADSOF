@@ -5,7 +5,6 @@ import es.uam.eps.padsof.p3.user.*;
 import java.util.*;
 
 import es.uam.eps.padsof.p3.stat.CourseStat;
-import es.uam.eps.padsof.p3.stat.ExerciseStat;
 import es.uam.eps.padsof.p3.exercise.*;
 
 public class Course {
@@ -187,13 +186,31 @@ public class Course {
 		this.courseElements.add(ce);
 		return true;
 	}
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/**
+	 * 
+	 * @param u unit to delete
+	 * @return true if the unit has been deleted false if not
+	 */
 	public boolean deleteUnit(Unit u){
 		if(this.courseElements.contains(u)){
 			for(CourseElement aux: u.getCourseElements()){
-				aux srarasa
+				if(aux instanceof Unit){
+					Unit other = (Unit) aux;
+					u.deleteSubUnit(other);
+				}
+				if(aux instanceof Note){
+					Note other = (Note) aux;
+					u.deleteNote(other);
+				}
+				if(aux instanceof Exercise){
+					Exercise other = (Exercise) aux;
+					u.deleteExercise(other);
+				}
 			}
+			this.courseElements.remove(u);
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -209,17 +226,17 @@ public class Course {
 	}
 	/**
 	 * Method that returns the average mark associated to a course
-	 * @return 
+	 * @return double mark out of 10
 	 */
 	
-	public double getAverage(){
+	public double getTotalAverage(){
 		return this.getCourseStat().getAverageMark();
 	}
 	
 	/**
 	 * Method that expels a student from a course
 	 * @param s Student
-	 * @return
+	 * @return true if the student has been expelled false if not
 	 */
 	public boolean expellStudent(Student s){
 		if(this.acceptedStudent(s)){
@@ -233,9 +250,9 @@ public class Course {
 	}
 	
 	/**
-	 * Method that readmits a student in a course
-	 * @param s Student to readmit
-	 * @return
+	 * Method that re-admits a student in a course
+	 * @param s Student to re-admit
+	 * @return true if the student has been re-admitted false if not
 	 */
 	public boolean readmitStudent(Student s){
 		if(this.expelledStudents.contains(s)){
@@ -247,6 +264,21 @@ public class Course {
 		}
 		return false;
 	}
+	
+	/**
+	 * Method that search an application of a student passed by argument
+	 * @param s student of the application to search
+	 * @return Application if the student has applied for the course null if not
+	 */
+	public Application searchApplication(Student s){
+		for(Application aux: this.getApplications()){
+			if(aux.getAppliedStudent().equals(s)){
+				return aux;
+			}
+		}
+		return null;
+	}
+	
 
 	/**
 	 *  Function equals that compares the id of two courses

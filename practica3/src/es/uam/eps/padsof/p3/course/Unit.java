@@ -4,10 +4,10 @@ import java.util.*;
 import java.time.*;
 import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.exercise.Question;
+import es.uam.eps.padsof.p3.stat.Answer;
 import es.uam.eps.padsof.p3.stat.ExerciseStat;
 
 public class Unit extends CourseElement {
-	private Course course;
 	private List<CourseElement> courseElements;
 
 	/**
@@ -17,8 +17,7 @@ public class Unit extends CourseElement {
 	 * @param hidden
 	 */
 	public Unit(String title, String desc, boolean hidden, Course course) {
-		super(title, desc, hidden);
-		this.course = course;
+		super(title, desc, hidden, course);
 		this.courseElements = new ArrayList<CourseElement>();
 	}
 
@@ -38,21 +37,7 @@ public class Unit extends CourseElement {
 	
 	
 	
-	/* Method */
-
-	/**
-	 * @return the course
-	 */
-	public Course getCourse() {
-		return course;
-	}
-
-	/**
-	 * @param course the course to set
-	 */
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+	/* Methods */
 
 	/**
 	 * Method that creates a unit associated to a course
@@ -65,7 +50,7 @@ public class Unit extends CourseElement {
 		CourseElement ce;
 		
 		
-		ce = new Unit(title, desc, hidden, this.course);
+		ce = new Unit(title, desc, hidden, this.getCourse());
 		
 		for(CourseElement aux: this.courseElements){
 			if(ce.equals(aux)){
@@ -77,7 +62,29 @@ public class Unit extends CourseElement {
 		return true;
 	}
 	
-	public boolean deleteSubUnit()
+	/**
+	 * Method that allows professors to delete subunits
+	 * @param u subunit to delete
+	 * @return true if the subunit has been deleted false if not
+	 */
+	public boolean deleteSubUnit(Unit u){
+		if(this.courseElements.contains(u)){
+			for(CourseElement ce: u.courseElements){
+				if(ce instanceof Note){
+					Note other = (Note) ce;
+					u.deleteNote(other);
+				}
+				if(ce instanceof Exercise){
+					Exercise other = (Exercise) ce;
+					u.deleteExercise(other);
+				}
+			}
+			this.getCourseElements().remove(u);
+			this.getCourse().getCourseElements().remove(u);
+			return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * Method that creates a note associated to a unit and its course
@@ -90,7 +97,7 @@ public class Unit extends CourseElement {
 		CourseElement ce;
 		
 		
-		ce = new Note(title, desc, hidden, text);
+		ce = new Note(title, desc, hidden, text, this.getCourse());
 		
 		for(CourseElement aux: this.courseElements){
 			if(ce.equals(aux)){
@@ -110,7 +117,7 @@ public class Unit extends CourseElement {
 	public boolean deleteNote(Note n){
 		if(this.courseElements.contains(n)){
 			this.courseElements.remove(n);
-			this.course.getCourseElements().remove(n);
+			this.getCourse().getCourseElements().remove(n);
 			return true;
 		}
 		return false;
@@ -122,23 +129,38 @@ public class Unit extends CourseElement {
 	 * @param hidden
 	 * @return
 	 */
-	public boolean createExercise(String title, String desc, boolean hidden, int weight, int penalty, int numQues, boolean randomness,
-			ExerciseStat stats, ArrayList<Question> questions, LocalDate startDate, LocalDate expDate){
+	public CourseElement createExercise(){
 		CourseElement ce;
 		
 		
-		ce = new Exercise(title, desc, hidden, weight, penalty, numQues, randomness, stats, questions, startDate, expDate);
+		ce = new Exercise(this.getCourse());
 		
-		for(CourseElement aux: this.courseElements){
-			if(ce.equals(aux)){
-				return false;
-			}
-		}
 		this.courseElements.add(ce);
 		this.getCourse().getCourseElements().add(ce);
-		return true;
+		return ce;
 	}
 	
-
+	
+	/**
+	 * Method that allows a professor to delete an exercise from a unit and its course
+	 * @param e exercise to delete
+	 * @return true if the exercise has been deleted false if not
+	 */
+	public boolean deleteExercise(Exercise e){
+		if(this.courseElements.contains(e)){
+			if(e.getAnswers().isEmpty() != true){
+				for(Answer a: e.getAnswers()){
+					a.getStudent().getAnswers().remove(a);
+				}
+			}
+			this.courseElements.remove(e);
+			this.getCourse().getCourseElements().remove(e);
+			
+			return true;
+		}
+		return false;
+	}
+	
+	
 	
 }

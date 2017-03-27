@@ -1,8 +1,9 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.util.List;
 
-public class UniqQuestion extends MUQuestion{
-	private Option solution;	
+public class UniqQuestion extends MUQuestion{	
+	private List<Option> solution;
 	
 	/**
 	 * @param title
@@ -12,43 +13,54 @@ public class UniqQuestion extends MUQuestion{
 	 * @param randomOrder
 	 * @param solution
 	 */
-	public UniqQuestion(String title, int weight, int numAns, boolean randomOrder) {
-		super(title, weight, numAns, randomOrder);
+	public UniqQuestion(String title, int weight, int numAns, boolean randomOrder, Exercise exer) {
+		super(title, weight, numAns, randomOrder, exer);
 		this.solution = null;
 	}
+	
 
 	/**
 	 * @return the solution
 	 */
-	public Option getSolution() {
+	public List<Option> getSolution() {
 		return solution;
 	}
+
+
+	/**
+	 * @param solution the solution to set
+	 */
+	public void setSolution(List<Option> solution) {
+		this.solution = solution;
+	}
+
 
 	/**
 	 * 
 	 * @param s
 	 * @return true if created successfully, false if not
 	 */
-	public boolean setSolution(String s) {
-		Option solution;
-		if(s.equals("f") || s.equals("t")){
-			solution = new Option("s");
-			this.solution = solution;
-			return true;
+	public boolean setSolution(Option o) {
+		if (!this.getAnswers().contains(o)){
+			return false;
 		}
-		
-		return false;
+		this.solution.add(o);
+		return true;
 	}
 	
 	/**
-	 * Method to remove a solution
+	 * Method to delete an option
 	 * @param sol
-	 * @return true if it has been succesfully deleted, false if not
+	 * @return true if it has been successfully deleted, false if not
 	 */
 	
-	public boolean deleteSolution(Option sol){
+	public boolean deleteOption(Option sol){
 		if(this.solution.equals(sol)){
 			this.solution = null;
+		}
+		if(this.getAnswers().contains(sol)){
+			this.getAnswers().remove(sol);
+			this.setNumAns(this.getNumAns()-1);
 			return true;
 		}
 		return false;
