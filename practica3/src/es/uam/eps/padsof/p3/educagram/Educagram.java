@@ -114,7 +114,7 @@ public class Educagram implements Serializable{
 		
 		for (Student s: students){
 			if (s.getEmail().equals(email)){
-				if (psw == s.getPassword()){
+				if (psw.equals(s.getPassword())){
 					return s;
 				}
 			}	
@@ -143,6 +143,7 @@ public class Educagram implements Serializable{
 	        i = 0;
 	        while(tokens.hasMoreTokens() && i < 5){
 	        	str[i] = tokens.nextToken();
+	        	i++;
 	        }
 	        if(EmailSystem.isValidEmailAddr(str[2])){
 	        	Student s = new Student(str[0] + " " + str[1], str[2], str[4]);
