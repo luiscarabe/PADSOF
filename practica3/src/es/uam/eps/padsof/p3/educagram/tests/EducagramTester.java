@@ -67,22 +67,7 @@ public class EducagramTester {
 	@Test
 	public void testSearchStudent() {
 		assertEquals(s.getEmail(), "Javier.Carrera@aadu.es");
-	}
-	
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#searchInvalidStudent(java.lang.String)}.
-	 */
-	@Test
-	public void testSearchInvalidStudent() {
 		assertNull(s1);
-	}
-	
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#searchInvalidCourse(java.lang.String)}.
-	 */
-	@Test
-	public void testSearchInvalidCourse() {
-		assertNull(c2);
 	}
 	
 	/**
@@ -94,15 +79,8 @@ public class EducagramTester {
 		edu.getCourses().add(c);
 		c1 = edu.searchCourse("PADSOF");
 		assertEquals(c,c1);
-	}
 
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#InvalidsignIn(java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testInvalidSignIn() {
-		assertNull(u1);
-		
+		assertNull(c2);
 	}
 	
 	/**
@@ -111,6 +89,7 @@ public class EducagramTester {
 	@Test
 	public void testSignIn() {
 		assertEquals(u.getName(), "Roberto Paz");
+		assertNull(u1);
 		
 	}
 

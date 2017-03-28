@@ -68,13 +68,6 @@ public class NoteTester {
 	@Test
 	public void testEqualsObject() {
 		assertTrue(n.equals(n1));
-	}
-	
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.CourseElement#equals(java.lang.Object)}.
-	 */
-	@Test
-	public void testNotEqualsObject() {
 		assertFalse(n.equals(n2));
 	}
 
