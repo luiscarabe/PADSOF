@@ -42,6 +42,7 @@ public class Course implements Serializable{
 		this.id = lastId;
 		this.title = title;
 		this.desc = desc;
+		this.courseStat = null;
 		this.enrolledStudents = new ArrayList<Student>();
 		this.expelledStudents = new ArrayList<Student>();
 		this.courseElements = new ArrayList<CourseElement>();
@@ -224,10 +225,29 @@ public class Course implements Serializable{
 	/**
 	 * Method that informs if a student is enrolled in a course
 	 * @param student
-	 * @return
+	 * @return true if the student is accepted false if not
 	 */
-	public boolean acceptedStudent(Student student){
+	public boolean isEnrolledStudent(Student student){
 		if(enrolledStudents.contains(student)){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method that informs if a student has been expelled from a course
+	 * @param student
+	 * @return true if the student has been false if not
+	 */
+	public boolean isExpelledStudent(Student student){
+		if(expelledStudents.contains(student)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isNotAdmittedStudent(Student student){
+		if(this.isExpelledStudent(student) == false && this.isEnrolledStudent(student) == false){
 			return true;
 		}
 		return false;
@@ -238,6 +258,9 @@ public class Course implements Serializable{
 	 */
 	
 	public double getTotalAverage(){
+		if(this.getCourseStat() == null){
+			return -1;
+		}
 		return this.getCourseStat().getAverageMark();
 	}
 	
@@ -248,7 +271,7 @@ public class Course implements Serializable{
 	 */
 	public boolean expellStudent(Student s) throws Exception{
 		String str1, str2;
-		if(this.acceptedStudent(s)){
+		if(this.isEnrolledStudent(s)){
 			this.enrolledStudents.remove(s);
 			this.expelledStudents.add(s);
 			s.getEnrolledCourses().remove(this);
@@ -261,7 +284,7 @@ public class Course implements Serializable{
 				if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
 					throw new FailedInternetConnectionException(str1);
 				}
-				if(EmailSystem.isValidEmailAddr(s.getEmail())){
+				if(EmailSystem.isValidEmailAddr(s.getEmail()) == false){
 					throw new InvalidEmailAddressException(s.getEmail());
 				}
 				EmailSystem.send(s.getEmail(), str1, str2, true);
@@ -285,7 +308,7 @@ public class Course implements Serializable{
 	 */
 	public boolean readmitStudent(Student s) throws Exception{
 		String str1, str2;
-		if(this.expelledStudents.contains(s)){
+		if(this.isExpelledStudent(s)){
 			this.expelledStudents.remove(s);
 			this.enrolledStudents.add(s);
 			s.getExpelledCourses().remove(this);
@@ -298,7 +321,7 @@ public class Course implements Serializable{
 				if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
 					throw new FailedInternetConnectionException(str1);
 				}
-				if(EmailSystem.isValidEmailAddr(s.getEmail())){
+				if(EmailSystem.isValidEmailAddr(s.getEmail()) == false){
 					throw new InvalidEmailAddressException(s.getEmail());
 				}
 				EmailSystem.send(s.getEmail(), str1, str2, true);

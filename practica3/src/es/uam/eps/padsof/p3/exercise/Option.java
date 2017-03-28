@@ -30,6 +30,27 @@ public class Option implements Serializable{
 	public void setOption(String option) {
 		this.option = option;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Option other = (Option) obj;
+		if (option == null) {
+			if (other.option != null)
+				return false;
+		} else if (!option.equals(other.option))
+			return false;
+		return true;
+	}
+	
 	
 	
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.padsof.p3.educagram.tests;
+package es.uam.eps.padsof.p3.educagram.testers;
 
 import static org.junit.Assert.*;
 
@@ -21,13 +21,9 @@ import es.uam.eps.padsof.p3.user.User;
  */
 public class EducagramTester {
 	Educagram edu;
-	User u;
-	User u1;
-	Student s;
-	Student s1;
-	Course c;
-	Course c1;
-	Course c2;
+	User u, u1, u2;
+	Student s, s1;
+	Course c, c1, c2;
 	
 	@Before
 	public void setup() throws Exception{
@@ -47,6 +43,8 @@ public class EducagramTester {
 		u1 = edu.signIn("Roberto.Paz@aadu.es", "notValidPsw");
 		
 		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
+		
+		u2 = edu.signIn("teacher@teadu.com", "lovingPADSOF");
 	}
 	
 	/**
@@ -90,6 +88,7 @@ public class EducagramTester {
 	public void testSignIn() {
 		assertEquals(u.getName(), "Roberto Paz");
 		assertNull(u1);
+		assertEquals(u2.getName(), "Teacher");
 		
 	}
 

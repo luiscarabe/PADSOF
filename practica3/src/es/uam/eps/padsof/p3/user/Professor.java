@@ -63,7 +63,7 @@ public class Professor extends User implements Serializable{
 	 * @param a
 	 * @param bool
 	 */
-	public void acceptApplication(Application a, boolean bool) throws Exception{
+	public void confirmApplication(Application a, boolean bool) throws Exception{
 		if(bool == true){
 			a.acceptApplication();
 		}else {
@@ -79,6 +79,9 @@ public class Professor extends User implements Serializable{
 	 * @throws Exception 
 	 */
 	public boolean expellStudent(Student s, Course c) throws Exception{
+		if(c == null || s == null){
+			return false;
+		}
 		return c.expellStudent(s);
 	}
 	

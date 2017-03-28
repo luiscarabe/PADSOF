@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import es.uam.eps.padsof.p3.course.*;
 import es.uam.eps.padsof.p3.user.Student;
-import es.uam.eps.padsof.p3.user.User;
+import es.uam.eps.padsof.p3.user.Application;
+import es.uam.eps.padsof.p3.stat.CourseStat;
 
 /**
  * @author Alejo Luis
@@ -17,7 +18,9 @@ import es.uam.eps.padsof.p3.user.User;
 public class CourseTester {
 	Course c1, c2, c3;
 	CourseElement u1, u2, u3, u4;
-	Student s1, s2, s3;
+	Student s1, s2, s3, s4;
+	Application a1, a2, a3;
+	CourseStat cs1;
 	
 	
 	@Before
@@ -30,11 +33,25 @@ public class CourseTester {
 		u2 = c1.createUnit("Unit 1", "DescriptionUnit 2", true);
 		u4 = c1.createUnit("Unit 4", "DescriptionUnit 4", false);
 		
-		s1 = new Student("Name1", "Email@1", "password1");
+		s1 = new Student("Jorge Alcazar", "Jorge.Alcazar@esdu.es", "password1");
 		c1.getEnrolledStudents().add(s1);
-		s2 = new Student("Name2", "Email@2", "password2");
-		s3 = new Student("Name3", "Email@3", "password3");
+		s1.getEnrolledCourses().add(c1);
+		s2 = new Student("Manuel Blanco", "Manuel.Blanco@esdu.es", "password2");
+		s3 = new Student("Ana Cordero", "Ana.Cordero@esdu.es", "password3");
 		c1.getExpelledStudents().add(s3);
+		s3.getExpelledCourses().add(c1);
+		
+		s4 = new Student("Eva Fuertes", "Eva.Fuertes@esdu.es", "password4");
+		a1 = new Application(c1, s2);
+		a2 = new Application(c1, s4);
+		a3 = new Application(c2, s2);
+		c1.getApplications().add(a1); 
+		c1.getApplications().add(a2);
+		c2.getApplications().add(a3);
+		
+		cs1 = new CourseStat();
+		cs1.setAverageMark(9.7);
+		c1.setCourseStat(cs1);
 		
 	}
 	
@@ -80,36 +97,70 @@ public class CourseTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#acceptedStudent(es.uam.eps.padsof.p3.user.Student)}.
+	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#isEnrolledStudent(es.uam.eps.padsof.p3.user.Student)}.
 	 */
 	@Test
-	public void testAcceptedStudent() {
-		assertTrue(c1.acceptedStudent(s1));
-		assertFalse(c1.acceptedStudent(s2));
+	public void testIsAcceptedStudent() {
+		assertTrue(c1.isEnrolledStudent(s1));
+		assertFalse(c1.isEnrolledStudent(s2));
 	}
 
+	
+	/**
+	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#isExpelledStudent(es.uam.eps.padsof.p3.user.Student)}.
+	 * @throws Exception
+	 */
+	@Test
+	public void testIsExpelledStudent() throws Exception {
+		assertTrue(c1.isExpelledStudent(s3));
+		assertFalse(c1.isExpelledStudent(s1));
+		
+	}
+	
+	/**
+	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#isNotAdmittedStudent(es.uam.eps.padsof.p3.user.Student)}.
+	 */
+	@Test
+	public void testIsNotAdmittedStudent() {
+		assertTrue(c1.isNotAdmittedStudent(s2));
+		assertFalse(c1.isNotAdmittedStudent(s1));
+		assertFalse(c1.isNotAdmittedStudent(s3));
+	}
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#getTotalAverage()}.
 	 */
 	@Test
 	public void testGetTotalAverage() {
-		fail("Not yet implemented");
+		assertTrue(c1.getTotalAverage() == (double)(9.7));
+		assertTrue(c2.getTotalAverage() == -1);
 	}
 
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#expellStudent(es.uam.eps.padsof.p3.user.Student)}.
+	 * @throws Exception
 	 */
 	@Test
 	public void testExpellStudent() throws Exception{
-		assertTrue(c1.expellStudent(s3));
+		assertFalse(c1.expellStudent(s3));
+		assertTrue(c1.expellStudent(s1));
+		assertFalse(c1.getExpelledStudents().contains(s2));
+		assertFalse(c1.getEnrolledStudents().contains(s1));
+		assertTrue(c1.getExpelledStudents().contains(s1));
+		assertTrue(c1.getExpelledStudents().contains(s3));
 	}
 
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#readmitStudent(es.uam.eps.padsof.p3.user.Student)}.
+	 * @throws Exception
 	 */
 	@Test
-	public void testReadmitStudent() {
-		fail("Not yet implemented");
+	public void testReadmitStudent() throws Exception{
+		assertFalse(c1.readmitStudent(s1));
+		assertTrue(c1.readmitStudent(s3));
+		assertTrue(c1.getEnrolledStudents().contains(s3));
+		assertFalse(c1.getExpelledStudents().contains(s3));
+		assertTrue(c1.getEnrolledStudents().contains(s1));
+		assertFalse(c1.getExpelledStudents().contains(s1));
 	}
 
 	/**
@@ -117,7 +168,8 @@ public class CourseTester {
 	 */
 	@Test
 	public void testSearchApplication() {
-		fail("Not yet implemented");
+		assertNotNull(c1.searchApplication(s2));
+		assertNull(c2.searchApplication(s4));
 	}
 
 	/**

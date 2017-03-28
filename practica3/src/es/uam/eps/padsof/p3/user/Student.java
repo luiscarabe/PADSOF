@@ -96,6 +96,12 @@ public class Student extends User implements Serializable{
 	
 	/* Methods */
 	
+	/**
+	 * Method to apply for a Course
+	 * @param c
+	 * @return
+	 */
+	
 	public boolean applyCourse(Course c){
 		
 		Application a;
@@ -127,7 +133,7 @@ public class Student extends User implements Serializable{
 	}
 	
 	/**
-	 * Method that allows a student to get his/her course mark
+	 * Method that allows a student to get his/her course mark with a double
 	 * @param c course of the mark to see
 	 * @return double personal mark of the course out of 10
 	 */

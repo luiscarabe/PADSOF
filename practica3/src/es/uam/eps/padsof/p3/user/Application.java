@@ -79,7 +79,7 @@ public class Application implements Serializable{
 			if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
 				throw new FailedInternetConnectionException(str1);
 			}
-			if(EmailSystem.isValidEmailAddr(this.appliedStudent.getEmail())){
+			if(EmailSystem.isValidEmailAddr(this.appliedStudent.getEmail()) == false){
 				throw new InvalidEmailAddressException(this.appliedStudent.getEmail());
 			}
 			EmailSystem.send(this.appliedStudent.getEmail(), str1, str2, true);
@@ -105,7 +105,7 @@ public class Application implements Serializable{
 			if(str1.charAt(0) == 'w' || str1.charAt(0) == 'W'){
 				throw new FailedInternetConnectionException(str1);
 			}
-			if(EmailSystem.isValidEmailAddr(this.appliedStudent.getEmail())){
+			if(EmailSystem.isValidEmailAddr(this.appliedStudent.getEmail()) == false){
 				throw new InvalidEmailAddressException(this.appliedStudent.getEmail());
 			}
 			EmailSystem.send(this.appliedStudent.getEmail(), str1, str2, true);
