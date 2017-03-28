@@ -41,7 +41,7 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 
 
 	/**
-	 * 
+	 * Method to add a solution
 	 * @param s
 	 * @return true if created successfully, false if not
 	 */
@@ -54,6 +54,20 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 		}
 		this.solution.add(o);
 		return true;
+	}
+	
+	/**
+	 * Method to remove a solution
+	 * @param sol
+	 * @return true if it has been successfully deleted, false if not
+	 */
+	
+	public boolean deleteSolution(Option sol){
+		if(this.solution.contains(sol)){
+			this.solution.remove(sol);
+			return true;
+		}
+		return false;
 	}
 	
 	/**

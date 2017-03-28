@@ -76,6 +76,8 @@ public abstract class MUQuestion extends Question implements Serializable {
 	}
 	
 	public abstract boolean deleteOption(Option o);
+	
+	public abstract boolean deleteSolution(Option sol);
 
 	
 }

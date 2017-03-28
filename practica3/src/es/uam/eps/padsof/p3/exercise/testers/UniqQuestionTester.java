@@ -93,6 +93,16 @@ public class UniqQuestionTester {
 		assertTrue(b1);
 		assertEquals(u.getSolution().get(0), o1);
 	}
+	
+	/**
+	 * Test method for {@link es.uam.eps.padsof.p3.exercise.UniqQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 */
+	@Test
+	public void testDeleteSolutionOption() {
+		assertFalse(u.deleteSolution(o2));
+		assertTrue(u.deleteSolution(o1));
+		assertTrue(u.getSolution().isEmpty());
+	}
 
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#getNumAns()}.

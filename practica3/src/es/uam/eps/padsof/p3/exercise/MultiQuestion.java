@@ -61,12 +61,26 @@ public class MultiQuestion extends MUQuestion implements Serializable{
 	 */
 	
 	public boolean addSolution(Option o){
-		if (!this.getAnswers().contains(o)){
+		if (!this.getAnswers().contains(o) || this.solution.contains(o)){
 			return false;
 		}
 		this.solution.add(o);
 		this.numSol ++;
 		return true;
+	}
+	
+	/**
+	 * Method to remove a solution
+	 * @param sol
+	 * @return true if it has been successfully deleted, false if not
+	 */
+	
+	public boolean deleteSolution(Option sol){
+		if(this.solution.contains(sol)){
+			this.solution.remove(sol);
+			return true;
+		}
+		return false;
 	}
 	
 	/**

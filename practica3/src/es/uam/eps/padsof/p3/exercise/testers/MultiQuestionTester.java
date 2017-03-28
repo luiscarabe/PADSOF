@@ -11,6 +11,7 @@ import org.junit.Test;
 import es.uam.eps.padsof.p3.course.Course;
 import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.exercise.MultiQuestion;
+import es.uam.eps.padsof.p3.exercise.Option;
 
 /**
  * @author Alejo Luis
@@ -20,6 +21,7 @@ public class MultiQuestionTester {
 	Course c;
 	Exercise e;
 	MultiQuestion m;
+	Option o, o1, o2, o3;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -29,47 +31,83 @@ public class MultiQuestionTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Question#getWeight()}.
+	 * Test method for to see if the weight is correctly initialized
 	 */
 	@Test
-	public void testGetWeight() {
-		assertTrue(m.getWeight() == 4.5);
+	public void testGetIniWeight() {
+		assertTrue(m.getWeight() == 3.5);
+	}
+	
+	/**
+	 * Test method for the weight setter
+	 */
+	
+	@Test
+	public void testSetWeight() {
 		m.setWeight(4.2);
 		assertTrue(m.getWeight() == 4.2);
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Question#getTitle()}.
+	 * Test method to see if the title is correctly initialized
 	 */
 	@Test
-	public void testGetTitle() {
+	public void testGetIniTitle() {
 		assertEquals(m.getTitle(), "Select all the natural numbers.");
+	}
+	
+	/**
+	 *Test method for the title setter
+	 */
+	@Test
+	public void testSetTitle(){
 		m.setTitle("Select all the natural numbers (2 correct answers).");
 		assertEquals(m.getTitle(), "Select all the natural numbers (2 correct answers).");
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#deleteOption(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for correct addOption
+	 */
+	@Test
+	public void testAddOption() {
+		
+		o = m.addOption("-2");
+		o1 = m.addOption("8");
+		o2 = m.addOption("5");
+		
+		assertTrue(m.getAnswers().contains(o));
+		assertTrue(m.getAnswers().contains(o1));
+		assertTrue(m.getAnswers().contains(o2));
+	}
+	/**
+	 * Test method for incorrect addOption
+	 */
+	@Test
+	public void testIncAddOption(){
+		o3 = new Option("Four");
+		assertFalse(m.getAnswers().contains(o3));
+	}
+	
+	/**
+	 * Test method for delete option
 	 */
 	@Test
 	public void testDeleteOption() {
-		fail("Not yet implemented");
+		o = m.addOption("2");
+		assertTrue(m.deleteOption(o));
+		assertFalse(m.getAnswers().contains(o));
+		
 	}
-
+	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#getNumSol()}.
+	 * Test method for incorrect delete option
 	 */
 	@Test
-	public void testGetNumSol() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#addSolution(es.uam.eps.padsof.p3.exercise.Option)}.
-	 */
-	@Test
-	public void testAddSolution() {
-		fail("Not yet implemented");
+	public void testIncDeleteOption() {
+		o = new Option("Four");
+		assertFalse(m.deleteOption(o));
+		assertFalse(m.getAnswers().contains(o));
+		
 	}
 
 	/**
@@ -87,12 +125,28 @@ public class MultiQuestionTester {
 	public void testGetNumAns() {
 		fail("Not yet implemented");
 	}
-
+	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#addOption(java.lang.String)}.
+	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#addSolution(es.uam.eps.padsof.p3.exercise.Option)}.
 	 */
 	@Test
-	public void testAddOption() {
+	public void testAddSolution() {
+		fail("Not yet implemented");
+	}
+	
+	/**
+	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 */
+	@Test
+	public void testDeleteSolution() {
+		fail("Not yet implemented");
+	}
+	
+	/**
+	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#getNumSol()}.
+	 */
+	@Test
+	public void testGetNumSol() {
 		fail("Not yet implemented");
 	}
 	
