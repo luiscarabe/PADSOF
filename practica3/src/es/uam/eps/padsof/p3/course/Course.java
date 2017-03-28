@@ -25,14 +25,9 @@ public class Course implements Serializable{
 	private static int lastId = 0;
 	private List<Application> applications;
 	private List<CourseElement> courseElements;
-	
-	
-
-
 
 	/**
 	 * Constructor of Course
-	 * @param id
 	 * @param title
 	 * @param desc
 	 */

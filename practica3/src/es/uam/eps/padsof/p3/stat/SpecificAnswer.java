@@ -15,10 +15,8 @@ public class SpecificAnswer implements Serializable{
 	private List<Option> answers;
 	private double markOut10;
 	/**
+	 * Constructor of SpecificAnswer
 	 * @param question
-	 * @param answers
-	 * @param markOut10
-	 * @param num
 	 */
 	public SpecificAnswer(Question question) {
 		this.question = question;

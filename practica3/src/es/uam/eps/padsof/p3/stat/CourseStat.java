@@ -11,8 +11,7 @@ public class CourseStat implements Serializable{
 	private double averageMark;
 	private List<CMark> cMarks;
 	/**
-	 * @param averageMark
-	 * @param cMarks
+	 * Constructor of CourseStat
 	 */
 	public CourseStat() {
 		this.averageMark = -1;

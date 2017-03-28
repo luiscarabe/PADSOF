@@ -22,13 +22,17 @@ public class ExerciseStat implements Serializable{
 	 */
 	public ExerciseStat(Exercise exercise) {
 		int i = 0;
+		int numQues = exercise.getNumQues();
 		this.exercise = exercise;
-		for (@SuppressWarnings("unused") Question q: exercise.getQuestions()){
+		this.qAnswered = new int[numQues];
+		this.qNotAnswered = new int[numQues];
+		this.wrongAns = new int[numQues];
+		this.rightAns = new int[numQues];
+		for (i = 0; i < numQues; i++){
 			this.qAnswered[i] = 0;
 			this.qNotAnswered[i] = 0;
 			this.wrongAns[i] = 0;
 			this.rightAns[i] = 0;
-			i++;
 		}
 	}
 
@@ -118,7 +122,7 @@ public class ExerciseStat implements Serializable{
 							this.rightAns[i] ++;
 							this.qAnswered[i] ++;
 						}
-						else if((s.getMarkOut10() <= 0) && (s.getAnswers() == null)){
+						else if((s.getMarkOut10() <= 0) && (s.getAnswers().isEmpty() != true)){
 							/*The student has answered wrongly*/
 							this.wrongAns[i]++;
 							this.qAnswered[i] ++;

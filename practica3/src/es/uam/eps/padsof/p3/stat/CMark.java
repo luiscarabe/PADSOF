@@ -15,7 +15,7 @@ public class CMark implements Serializable{
 	private Student student;
 	
 	/**
-	 * @param courseMark
+	 * Constructor of CMark
 	 * @param course
 	 * @param student
 	 */
