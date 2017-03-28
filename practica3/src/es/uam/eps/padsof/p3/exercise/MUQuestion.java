@@ -19,10 +19,10 @@ public abstract class MUQuestion extends Question implements Serializable {
 	 * @param numAns
 	 * @param randomOrder
 	 */
-	public MUQuestion(String title, int weight, int numAns, boolean randomOrder, Exercise exer) {
+	public MUQuestion(String title, double weight, boolean randomOrder, Exercise exer) {
 		super(title, weight, exer);
 		this.answers =  new ArrayList<Option>();
-		this.numAns = numAns;
+		this.numAns = 0;
 		this.randomOrder = randomOrder;
 	}
 	/**
@@ -67,11 +67,12 @@ public abstract class MUQuestion extends Question implements Serializable {
 	 * @param sol
 	 */
 	
-	public void addOption(String sol){
+	public Option addOption(String sol){
 		Option opt;
 		opt = new Option(sol);
 		this.answers.add(opt);
 		this.numAns ++;
+		return opt;
 	}
 	
 	public abstract boolean deleteOption(Option o);

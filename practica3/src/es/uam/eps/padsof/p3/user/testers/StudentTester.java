@@ -42,7 +42,7 @@ public class StudentTester {
 		c2 = new Course("CN", "Numbers and sets");
 		c4 = new Course("LAB", "Java forever");
 		c5 = new Course("ADSOF", "Like PADSOF but without P");
-		e = new Exercise(c);
+		e = new Exercise("Exercise1", "descExercise1", true, c);
 		a = new ArrayList<Answer>();
 		a1 = new Answer(e, s, 5);
 		a.add(a1);

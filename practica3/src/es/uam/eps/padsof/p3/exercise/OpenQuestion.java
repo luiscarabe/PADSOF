@@ -16,7 +16,7 @@ public class OpenQuestion extends Question implements Serializable{
 	 * @param weight
 	 * @param solution
 	 */
-	public OpenQuestion(String title, int weight, Exercise exer) {
+	public OpenQuestion(String title, double weight, Exercise exer) {
 		super(title, weight, exer);
 		this.solution = new ArrayList<Option>();
 	}
@@ -41,14 +41,20 @@ public class OpenQuestion extends Question implements Serializable{
 	 * @param sol
 	 */
 
-	public void setSolution(Option sol){
+	public boolean addSolution(Option sol){
+		for(Option aux: this.getSolution()){
+			if(aux.equals(sol)){
+				return false;
+			}
+		}
 		this.solution.add(sol);
+		return true;
 	}
 	
 	/**
 	 * Method to remove a solution
 	 * @param sol
-	 * @return true if it has been succesfully deleted, false if not
+	 * @return true if it has been successfully deleted, false if not
 	 */
 	
 	public boolean deleteSolution(Option sol){

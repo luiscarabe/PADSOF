@@ -1,7 +1,7 @@
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 
 public class UniqQuestion extends MUQuestion implements Serializable{	
@@ -15,13 +15,12 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 	 * @param title
 	 * @param weight
 	 * @param answers
-	 * @param numAns
 	 * @param randomOrder
 	 * @param solution
 	 */
-	public UniqQuestion(String title, int weight, int numAns, boolean randomOrder, Exercise exer) {
-		super(title, weight, numAns, randomOrder, exer);
-		this.solution = null;
+	public UniqQuestion(String title, double weight, boolean randomOrder, Exercise exer) {
+		super(title, weight, randomOrder, exer);
+		this.solution = new ArrayList<Option>();
 	}
 	
 
@@ -46,9 +45,12 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 	 * @param s
 	 * @return true if created successfully, false if not
 	 */
-	public boolean setSolution(Option o) {
+	public boolean addSolution(Option o) {
 		if (!this.getAnswers().contains(o)){
 			return false;
+		}
+		if(this.solution.isEmpty() == false){
+			this.solution.clear();
 		}
 		this.solution.add(o);
 		return true;
@@ -61,8 +63,10 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 	 */
 	
 	public boolean deleteOption(Option sol){
-		if(this.solution.equals(sol)){
-			this.solution = null;
+		if(this.solution.isEmpty() == false){
+			if(this.solution.contains(sol)){
+				this.solution.clear();
+			}
 		}
 		if(this.getAnswers().contains(sol)){
 			this.getAnswers().remove(sol);

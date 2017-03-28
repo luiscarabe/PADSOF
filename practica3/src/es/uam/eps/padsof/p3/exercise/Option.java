@@ -49,8 +49,5 @@ public class Option implements Serializable{
 		} else if (!option.equals(other.option))
 			return false;
 		return true;
-	}
-	
-	
-	
+	}	
 }

@@ -27,21 +27,11 @@ public class Exercise extends CourseElement implements Serializable{
  	private List<Answer> answers;
 	
 	/**
-	 * Constructor of Exercise
-	 * @param title
-	 * @param desc
-	 * @param hidden
-	 * @param weight
-	 * @param penalty
-	 * @param numQues
-	 * @param randomness
-	 * @param stats
-	 * @param questions
-	 * @param startDate
-	 * @param expDate
+	 * 	 * Constructor of Exercise
+	 * @param course
 	 */
-	public Exercise(Course course) {
-		super("nada", "nada", true, course);
+	public Exercise(String title, String desc,boolean hidden, Course course) {
+		super(title, desc, hidden, course);
 		this.questions = new ArrayList<Question>();
 		this.answers = new ArrayList<Answer>();
 		this.startDate = null;

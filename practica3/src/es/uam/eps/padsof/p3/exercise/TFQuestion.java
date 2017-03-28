@@ -15,9 +15,9 @@ public class TFQuestion extends Question implements Serializable{
 	 * @param title
 	 * @param weight
 	 */
-	public TFQuestion(String title, int weight, Exercise exer) {
+	public TFQuestion(String title, double weight, Exercise exer) {
 		super(title, weight, exer);
-		this.solution = null;
+		this.solution = new ArrayList<Option>();
 	}
 
 	/**
@@ -34,7 +34,9 @@ public class TFQuestion extends Question implements Serializable{
 	 * @return true if created successfully, false if not
 	 */
 	public boolean setSolution(Option solution) {
-		if(solution.getOption().equals("f") || solution.getOption().equals("t")){
+		if(solution.getOption().equals("f") || solution.getOption().equals("t")
+				|| solution.getOption().equals("F") || solution.getOption().equals("T")){
+			this.solution.clear();
 			this.solution.add(solution);
 			return true;
 		}
@@ -45,12 +47,12 @@ public class TFQuestion extends Question implements Serializable{
 	/**
 	 * Method to remove a solution
 	 * @param sol
-	 * @return true if it has been succesfully deleted, false if not
+	 * @return true if it has been successfully deleted, false if not
 	 */
 	
 	public boolean deleteSolution(Option sol){
-		if(this.solution.equals(sol)){
-			this.solution = null;
+		if(this.solution.contains(sol)){
+			this.solution.clear();
 			return true;
 		}
 		return false;

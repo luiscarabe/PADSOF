@@ -16,7 +16,7 @@ public abstract class Question implements Serializable{
 	 * @param title
 	 * @param weight
 	 */
-	public Question(String title, int weight, Exercise exe) {
+	public Question(String title, double weight, Exercise exe) {
 		this.title = title;
 		this.weight = weight;
 		this.exer = exe;

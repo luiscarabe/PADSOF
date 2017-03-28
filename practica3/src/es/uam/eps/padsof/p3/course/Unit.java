@@ -131,11 +131,11 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param hidden
 	 * @return
 	 */
-	public CourseElement createExercise(){
+	public CourseElement createExercise(String title, String desc, boolean hidden){
 		CourseElement ce;
 		
 		
-		ce = new Exercise(this.getCourse());
+		ce = new Exercise(title, desc, hidden, this.getCourse());
 		
 		this.courseElements.add(ce);
 		this.getCourse().getCourseElements().add(ce);
