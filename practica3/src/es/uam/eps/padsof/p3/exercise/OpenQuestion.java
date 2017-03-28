@@ -1,8 +1,10 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class OpenQuestion extends Question{
+
+public class OpenQuestion extends Question implements Serializable{
 	/**
 	 * 
 	 */

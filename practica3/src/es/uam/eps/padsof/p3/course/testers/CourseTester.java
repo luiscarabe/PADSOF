@@ -7,23 +7,34 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import es.uam.eps.padsof.p3.course.*;
+import es.uam.eps.padsof.p3.user.Student;
+import es.uam.eps.padsof.p3.user.User;
 
 /**
  * @author Alejo Luis
  *
  */
 public class CourseTester {
-	Course c1;
+	Course c1, c2, c3;
 	CourseElement u1, u2, u3, u4;
+	Student s1, s2, s3;
 	
 	
 	@Before
 	public void setUp() throws Exception{
 		c1 = new Course("Padsof", "It is known that everyone love it.");
+		c2 = new Course("Padsof", "It is known that everyone hate it.");
+		c3 = new Course("Soper", "SoperDescription");
 		
 		u1 = c1.createUnit("Unit 1", "DescriptionUnit 1", true);
 		u2 = c1.createUnit("Unit 1", "DescriptionUnit 2", true);
 		u4 = c1.createUnit("Unit 4", "DescriptionUnit 4", false);
+		
+		s1 = new Student("Name1", "Email@1", "password1");
+		c1.getEnrolledStudents().add(s1);
+		s2 = new Student("Name2", "Email@2", "password2");
+		s3 = new Student("Name3", "Email@3", "password3");
+		c1.getExpelledStudents().add(s3);
 		
 	}
 	
@@ -73,7 +84,8 @@ public class CourseTester {
 	 */
 	@Test
 	public void testAcceptedStudent() {
-		fail("Not yet implemented");
+		assertTrue(c1.acceptedStudent(s1));
+		assertFalse(c1.acceptedStudent(s2));
 	}
 
 	/**
@@ -88,8 +100,8 @@ public class CourseTester {
 	 * Test method for {@link es.uam.eps.padsof.p3.course.Course#expellStudent(es.uam.eps.padsof.p3.user.Student)}.
 	 */
 	@Test
-	public void testExpellStudent() {
-		fail("Not yet implemented");
+	public void testExpellStudent() throws Exception{
+		assertTrue(c1.expellStudent(s3));
 	}
 
 	/**
@@ -113,7 +125,8 @@ public class CourseTester {
 	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		assertTrue(c1.equals(c2));
+		assertFalse(c1.equals(c3));
 	}
 
 }

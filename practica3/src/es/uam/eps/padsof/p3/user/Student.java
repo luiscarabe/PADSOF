@@ -1,5 +1,6 @@
 package es.uam.eps.padsof.p3.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import es.uam.eps.padsof.p3.course.Course;
@@ -8,7 +9,7 @@ import es.uam.eps.padsof.p3.user.Application;
 import es.uam.eps.padsof.p3.stat.Answer;
 
 
-public class Student extends User{
+public class Student extends User implements Serializable{
 	/**
 	 * 
 	 */

@@ -1,8 +1,10 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UniqQuestion extends MUQuestion{	
+
+public class UniqQuestion extends MUQuestion implements Serializable{	
 	/**
 	 * 
 	 */

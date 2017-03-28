@@ -2,9 +2,11 @@ package es.uam.eps.padsof.p3.user;
 
 import es.uam.eps.padsof.p3.course.*;
 import es.uam.eps.padsof.p3.educagram.Educagram;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class Professor extends User {
+public class Professor extends User implements Serializable{
 	
 	/**
 	 * 

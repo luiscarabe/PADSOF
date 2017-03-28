@@ -1,6 +1,7 @@
 package es.uam.eps.padsof.p3.exercise;
 
 import java.util.*;
+import java.io.Serializable;
 import java.time.*;
 import es.uam.eps.padsof.p3.course.Course;
 import es.uam.eps.padsof.p3.course.CourseElement;
@@ -10,7 +11,7 @@ import es.uam.eps.padsof.p3.stat.SpecificAnswer;
 import es.uam.eps.padsof.p3.user.Student;
 
 
-public class Exercise extends CourseElement{
+public class Exercise extends CourseElement implements Serializable{
 	/**
 	 * 
 	 */

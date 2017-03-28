@@ -1,8 +1,10 @@
 package es.uam.eps.padsof.p3.exercise;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class TFQuestion extends Question {
+
+public class TFQuestion extends Question implements Serializable{
 	/**
 	 * 
 	 */

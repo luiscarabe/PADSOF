@@ -1,6 +1,8 @@
 package es.uam.eps.padsof.p3.course;
 
-public class Note extends CourseElement {
+import java.io.Serializable;
+
+public class Note extends CourseElement implements Serializable{
 	/**
 	 * 
 	 */

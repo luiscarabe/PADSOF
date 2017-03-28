@@ -1,10 +1,11 @@
 package es.uam.eps.padsof.p3.course;
 
+import java.io.Serializable;
 import java.util.*;
 import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.stat.Answer;
 
-public class Unit extends CourseElement {
+public class Unit extends CourseElement implements Serializable{
 	/**
 	 * 
 	 */
