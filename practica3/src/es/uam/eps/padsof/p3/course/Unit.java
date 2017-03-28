@@ -48,20 +48,20 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param hidden
 	 * @return
 	 */
-	public boolean createSubUnit(String title, String desc, boolean hidden){
-		CourseElement ce;
+	public Unit createSubUnit(String title, String desc, boolean hidden){
+		Unit ce;
 		
 		
 		ce = new Unit(title, desc, hidden, this.getCourse());
 		
-		for(CourseElement aux: this.courseElements){
+		for(CourseElement aux: this.getCourse().getCourseElements()){
 			if(ce.equals(aux)){
-				return false;
+				return null;
 			}
 		}
 		this.courseElements.add(ce);
 		this.getCourse().getCourseElements().add(ce);
-		return true;
+		return ce;
 	}
 	
 	/**
@@ -95,20 +95,20 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param hidden
 	 * @return
 	 */
-	public boolean createNote(String title, String desc, boolean hidden, String text){
-		CourseElement ce;
+	public Note createNote(String title, String desc, boolean hidden, String text){
+		Note ce;
 		
 		
 		ce = new Note(title, desc, hidden, text, this.getCourse());
 		
-		for(CourseElement aux: this.courseElements){
+		for(CourseElement aux: this.getCourse().getCourseElements()){
 			if(ce.equals(aux)){
-				return false;
+				return null;
 			}
 		}
 		this.courseElements.add(ce);
 		this.getCourse().getCourseElements().add(ce);
-		return true;
+		return ce;
 	}
 	
 	/**
@@ -131,11 +131,17 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param hidden
 	 * @return
 	 */
-	public CourseElement createExercise(String title, String desc, boolean hidden){
-		CourseElement ce;
+	public Exercise createExercise(String title, String desc, boolean hidden){
+		Exercise ce;
 		
 		
 		ce = new Exercise(title, desc, hidden, this.getCourse());
+		
+		for(CourseElement aux: this.getCourse().getCourseElements()){
+			if(ce.equals(aux)){
+				return null;
+			}
+		}
 		
 		this.courseElements.add(ce);
 		this.getCourse().getCourseElements().add(ce);
@@ -161,6 +167,16 @@ public class Unit extends CourseElement implements Serializable{
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Method that hide a unit and all its elements
+	 */
+	public void unitHide(){
+		for(CourseElement aux: this.getCourseElements()){
+			aux.setHidden(true);
+		}
+		this.setHidden(true);
 	}
 	
 	

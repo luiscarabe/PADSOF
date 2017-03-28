@@ -78,6 +78,7 @@ public class MultiQuestionTester {
 		assertTrue(m.getAnswers().contains(o));
 		assertTrue(m.getAnswers().contains(o1));
 		assertTrue(m.getAnswers().contains(o2));
+		assertTrue(m.getNumAns() == 3);
 	}
 	/**
 	 * Test method for incorrect addOption
@@ -109,55 +110,59 @@ public class MultiQuestionTester {
 		assertFalse(m.getAnswers().contains(o));
 		
 	}
-
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#getAnswers()}.
-	 */
-	@Test
-	public void testGetAnswers() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#getNumAns()}.
-	 */
-	@Test
-	public void testGetNumAns() {
-		fail("Not yet implemented");
-	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#addSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for add solution
 	 */
 	@Test
 	public void testAddSolution() {
-		fail("Not yet implemented");
+		o1 = m.addOption("8");
+		o2 = m.addOption("5");
+		assertTrue(m.addSolution(o1));
+		assertTrue(m.addSolution(o2));
+		assertTrue(m.getSolution().contains(o1));
+		assertTrue(m.getSolution().contains(o2));
+		assertTrue(m.getNumSol() == 2);
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for incorrect add solution
+	 */
+	@Test
+	public void testIncAddSolution() {
+		o = new Option("Four");
+		assertFalse(m.addSolution(o));
+		assertTrue(m.getNumSol() == 0);
+	}
+	
+	/**
+	 * Test method for delete solution
 	 */
 	@Test
 	public void testDeleteSolution() {
-		fail("Not yet implemented");
+		o2 = m.addOption("5");
+		m.addSolution(o2);
+		assertTrue(m.deleteSolution(o2));
+		assertFalse(m.getSolution().contains(o2));
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MultiQuestion#getNumSol()}.
+	 * Test method for invalid delete solution
 	 */
 	@Test
-	public void testGetNumSol() {
-		fail("Not yet implemented");
+	public void testInvDeleteSolution() {
+		o2 = new Option("Four");
+		assertFalse(m.deleteSolution(o2));
+		assertFalse(m.getSolution().contains(o2));
 	}
+
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#isRandomOrder()}.
+	 * Test method for isRandomOrder
 	 */
 	@Test
 	public void testIsRandomOrder() {
 		assertTrue(m.isRandomOrder() == false);
-		m.setRandomOrder(true);
-		assertTrue(m.isRandomOrder() == true);
 	}
 
 }

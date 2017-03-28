@@ -158,6 +158,9 @@ public abstract class CourseElement implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		CourseElement other = (CourseElement) obj;
+		if(!course.equals(other.course)){
+		    return false;
+		}
 		if (title == null) {
 			if (other.title != null)
 				return false;
