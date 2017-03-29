@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.stat;
 
 import es.uam.eps.padsof.p3.exercise.OpenQuestion;
@@ -16,11 +21,10 @@ public class SpecificAnswer implements Serializable{
 	private List<Option> answers;
 	private double markOutWeight;
 	private double markOut10;
+
 	/**
+	 * Constructor of SpecificAnswer
 	 * @param question
-	 * @param answers
-	 * @param markOut10
-	 * @param num
 	 */
 	public SpecificAnswer(Question question) {
 		this.question = question;
@@ -79,7 +83,7 @@ public class SpecificAnswer implements Serializable{
 	/**
 	 * Method to choose an option
 	 * @param o
-	 * @return
+	 * @return true if successful, false if not
 	 */
 	
 	public boolean chooseAnswer(Option o){
@@ -91,7 +95,7 @@ public class SpecificAnswer implements Serializable{
 	}
 	
 	/**
-	 * MEthod to delete an answer
+	 * Method to delete an answer
 	 * @param o
 	 */
 	
@@ -112,11 +116,6 @@ public class SpecificAnswer implements Serializable{
 			this.markOut10 = 0;
 			return;
 		}
-		if (this.answers.size() != this.question.getSolution().size()){
-			this.markOutWeight = 0-this.question.getExer().getPenalty();
-			this.markOut10 = 0 - (this.question.getExer().getPenalty() / this.question.getExer().getWeight() ) * 10;
-			return;
-		}
 		if(this.question instanceof OpenQuestion){
 			for  (Option o: this.answers){
 				if (this.question.getSolution().contains(o)){
@@ -125,6 +124,11 @@ public class SpecificAnswer implements Serializable{
 					return;
 				}
 			}
+		}
+		if (this.answers.size() != this.question.getSolution().size()){
+			this.markOutWeight = 0-this.question.getExer().getPenalty();
+			this.markOut10 = 0 - (this.question.getExer().getPenalty() / this.question.getExer().getWeight() ) * 10;
+			return;
 		}
 		for  (Option o: this.answers){
 			if (!this.question.getSolution().contains(o)){

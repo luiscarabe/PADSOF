@@ -1,3 +1,7 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
 package es.uam.eps.padsof.p3.course;
 
 import java.io.Serializable;
@@ -15,6 +19,7 @@ public class Note extends CourseElement implements Serializable{
 	 * @param desc
 	 * @param hidden
 	 * @param text
+	 * @param course
 	 */
 	public Note(String title, String desc, boolean hidden, String text, Course course) {
 		super(title, desc, hidden, course);

@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -13,8 +18,10 @@ public abstract class Question implements Serializable{
 	private Exercise exer;
 
 	/**
+	 * Constructor of Question
 	 * @param title
 	 * @param weight
+	 * @param exe
 	 */
 	public Question(String title, double weight, Exercise exe) {
 		this.title = title;
@@ -63,6 +70,9 @@ public abstract class Question implements Serializable{
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
+	/**
+	 * @return
+	 */
 
 	public abstract List<Option> getSolution();
 	

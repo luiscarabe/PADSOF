@@ -10,9 +10,10 @@ import es.uam.eps.padsof.p3.user.*;
 
 public class Main {
 
+	@SuppressWarnings("unused")
 	public static void main(String args[]) throws Exception{
 		Application a = null;
-		Answer as;
+		Answer as, as2;
 		Educagram educa;
 		Professor p;
 		Student s1, s2, s3, saux;
@@ -27,7 +28,11 @@ public class Main {
 		TFQuestion tq;
 		LocalDate d1, d2;
 		Option o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12;
-		int i1,i2;
+		CMark cm1, cm2;
+		CourseStat cs1;
+		ExerciseStat es1;
+		int i;
+
 		
 		educa = Educagram.getInstance();
 		educa.readFile();
@@ -297,27 +302,106 @@ public class Main {
 			System.out.println("The student can do the exercise: "+ e.getTitle());
 		}
 		as = e.takeExercise(s1);
+		System.out.println("The penalty of this exercise is: "+e.getPenalty());
 		
 		o9 = new Option("8");
 		as.getSpecificAnswer().get(0).chooseAnswer(o9);
 		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(0).getQuestion().getTitle());
 		
 		o10 = new Option("t");
-		as.getSpecificAnswer().get(0).chooseAnswer(o10);
+		as.getSpecificAnswer().get(1).chooseAnswer(o10);
 		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(1).getQuestion().getTitle());
 		
-		as.getSpecificAnswer().get(0).chooseAnswer(o5);
-		as.getSpecificAnswer().get(0).chooseAnswer(o6);
+		as.getSpecificAnswer().get(2).chooseAnswer(o5);
+		as.getSpecificAnswer().get(2).chooseAnswer(o6);
 		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(2).getQuestion().getTitle());
 		
-		as.getSpecificAnswer().get(0).chooseAnswer(o7);
+		as.getSpecificAnswer().get(3).chooseAnswer(o7);
 		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(3).getQuestion().getTitle());
 		
-		/*Autocorrection*/
+		/*Auto-correction*/
 		for(SpecificAnswer s: as.getSpecificAnswer()){
 			s.calculateMark();
-			System.out.println(");
+			System.out.println("Auto-correction (not seen by student yet) of Question "+ s.getQuestion().getTitle() + " , the mark is: "+s.getMarkOutWeight());
 		}
+		as.calculateMark();
+		System.out.println("And the average mark of the exercise is: " + as.getMarkOutWeight());
+		educa.signOut();
+		
+		/*Student 2 signs in */
+		
+		s2 = (Student) educa.signIn("Juan.Valle@esdu.es", "ualle@esd");
+		System.out.println("\nStudent " + s2.getName() + " has signed in.");
+		
+		if(e.canTakeExercise(s1)){
+			System.out.println("The student can do the exercise: "+ e.getTitle());
+		}
+		as2 = e.takeExercise(s2);
+		System.out.println("The penalty of this exercise is: "+e.getPenalty());
+		;
+		as2.getSpecificAnswer().get(0).chooseAnswer(o1);
+		System.out.println("The student has answered the question "+as2.getSpecificAnswer().get(0).getQuestion().getTitle());
+		
+		as2.getSpecificAnswer().get(1).chooseAnswer(o1);
+		System.out.println("The student has answered the question "+as2.getSpecificAnswer().get(1).getQuestion().getTitle());
+		
+		System.out.println("The student has answered the question "+as2.getSpecificAnswer().get(2).getQuestion().getTitle());
+		
+		as2.getSpecificAnswer().get(3).chooseAnswer(o1);
+		System.out.println("The student has answered the question "+as2.getSpecificAnswer().get(3).getQuestion().getTitle());
+		
+		/*Auto-correction*/
+		for(SpecificAnswer s: as2.getSpecificAnswer()){
+			s.calculateMark();
+			System.out.println("Auto-correction (not seen by student yet) of Question "+ s.getQuestion().getTitle() + " , the mark is: "+s.getMarkOutWeight());
+		}
+		as2.calculateMark();
+		System.out.println("And the average mark of the exercise is: " + as2.getMarkOutWeight());
+		educa.signOut();
+		
+		/*We simulate that time has passed*/
+		System.out.println("Can students see the exercise? -> "+e.isAllowedToShow());
+		System.out.println("We simulate that time has passed");
+		d1 = d1.plusDays(-1);
+		e.setExpDate(d1);
+		
+		/*The system calculates the Course Mark*/
+		System.out.println("\nThe system calculates all stats");
+		
+		es1 = new ExerciseStat(e);
+		es1.setAll();
+		System.out.println("Exercise stats setted");
+		
+		cm1 = new CMark(c1, s1);
+		s1.getcMarks().add(cm1);
+		cm1.calculateCMark();
+		cm2 = new CMark(c1, s2);
+		s2.getcMarks().add(cm2);
+		cm2.calculateCMark();
+		System.out.println("Course marks setted");
+		
+		cs1 = new CourseStat();
+		cs1.getcMarks().add(cm1);
+		cs1.getcMarks().add(cm2);
+		cs1.calculateCstat();
+		System.out.println("Course average mark setted");
+		
+		
+		p = (Professor) educa.signIn("teacher@teadu.com", "lovingPADSOF");
+		System.out.println("\nProfessor has signed in (" + p.getName() + ")");
+		System.out.println("The average mark of the course "+c1.getTitle()+ " is "+cs1.getAverageMark());
+		System.out.println("The average mark of "+s1.getName()+" in that course is "+cm1.getCourseMark());
+		System.out.println("The average mark of "+s2.getName()+" in that course is "+cm2.getCourseMark());
+		System.out.println("Stats of Exercise: "+ e.getTitle());
+		for(i = 1; i <= e.getNumQues(); i++){
+			System.out.println("The number of students who have answered question "+i+" is "+es1.getqAnswered()[i-1]);
+			System.out.println("The number of students who have not answered question "+i+" is "+es1.getqNotAnswered()[i-1]);
+			System.out.println("The number of students who have answered (right) question "+i+" is "+es1.getRightAns()[i-1]);
+			System.out.println("The number of students who have answered (wrong) question "+i+" is "+es1.getWrongAns()[i-1]);
+		}
+		educa.signOut();
+		/*We simulate that the app is closed, saving all the data */
+		
 	}
 
 }

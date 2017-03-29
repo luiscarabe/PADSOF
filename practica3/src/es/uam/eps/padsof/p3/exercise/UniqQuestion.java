@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -12,11 +17,11 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 	private List<Option> solution;
 	
 	/**
+	 * Constructor of UniqQuestion
 	 * @param title
 	 * @param weight
-	 * @param answers
 	 * @param randomOrder
-	 * @param solution
+	 * @param exer
 	 */
 	public UniqQuestion(String title, double weight, boolean randomOrder, Exercise exer) {
 		super(title, weight, randomOrder, exer);
@@ -39,11 +44,10 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 		this.solution = solution;
 	}
 
-
 	/**
 	 * Method to add a solution
-	 * @param s
-	 * @return true if created successfully, false if not
+	 * @param o
+	 * @return
 	 */
 	public boolean addSolution(Option o) {
 		if (!this.getAnswers().contains(o)){

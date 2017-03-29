@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -11,10 +16,12 @@ public class OpenQuestion extends Question implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<Option> solution;
 
+
 	/**
+	 * Constructor of OpenQuestion
 	 * @param title
 	 * @param weight
-	 * @param solution
+	 * @param exer
 	 */
 	public OpenQuestion(String title, double weight, Exercise exer) {
 		super(title, weight, exer);

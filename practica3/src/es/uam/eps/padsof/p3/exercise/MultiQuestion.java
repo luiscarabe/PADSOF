@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -54,10 +59,11 @@ public class MultiQuestion extends MUQuestion implements Serializable{
 	public void setNumSol(int numSol) {
 		this.numSol = numSol;
 	}
+
 	/**
 	 * Method to add solution
-	 * @param sol
-	 * @return true if added successfully, false if not
+	 * @param o
+	 * @return
 	 */
 	
 	public boolean addSolution(Option o){

@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.course;
 
 import es.uam.eps.padsof.p3.user.*;
@@ -191,7 +196,7 @@ public class Course implements Serializable{
 		return ce;
 	}
 	/**
-	 * 
+	 * Method that deletes a unit
 	 * @param u unit to delete
 	 * @return true if the unit has been deleted false if not
 	 */
@@ -240,6 +245,11 @@ public class Course implements Serializable{
 		}
 		return false;
 	}
+	/**
+	 * Method that informs if a student has not been admitted from a course
+	 * @param student
+	 * @return true if the student has been false if not
+	 */
 	
 	public boolean isNotAdmittedStudent(Student student){
 		if(this.isExpelledStudent(student) == false && this.isEnrolledStudent(student) == false){

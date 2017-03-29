@@ -91,9 +91,10 @@ public class EducagramTester {
 	
 	/**
 	 * Test method for Sign In
+	 * @throws Exception 
 	 */
 	@Test
-	public void testSignIn() {
+	public void testSignIn() throws Exception {
 		edu.signOut();
 		assertNull(edu.getCurrentUser());
 		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
@@ -103,9 +104,10 @@ public class EducagramTester {
 	}
 	/**
 	 * Test method for TeacherSign In
+	 * @throws Exception 
 	 */
 	@Test
-	public void testTeachSignIn() {
+	public void testTeachSignIn() throws Exception {
 		assertNull(edu.getCurrentUser());
 		u2 = edu.signIn("teacher@teadu.com", "lovingPADSOF");
 		assertEquals(u2.getName(), "Teacher");
@@ -114,9 +116,10 @@ public class EducagramTester {
 	}
 	/**
 	 * Test method for Invalid Sign In
+	 * @throws Exception 
 	 */
 	@Test
-	public void testInvSignIn() {
+	public void testInvSignIn() throws Exception {
 		assertNull(edu.getCurrentUser());
 		u1 = edu.signIn("Roberto.Paz@aadu.es", "notValidPsw");
 		assertNull(u1);
@@ -126,9 +129,10 @@ public class EducagramTester {
 	
 	/**
 	 * Test method that test when a user sign out.
+	 * @throws Exception 
 	 */
 	@Test
-	public void testSignOutCorrect(){
+	public void testSignOutCorrect() throws Exception{
 		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
 		assertNotNull(edu.getCurrentUser());
 		assertTrue(edu.signOut());
@@ -137,9 +141,11 @@ public class EducagramTester {
 	
 	/**
 	 * Test method that test when it is called  signOut() method when there is no current user.
+	 * @throws 
+ 
 	 */
 	@Test
-	public void testSignOutError(){
+	public void testSignOutError() throws Exception{
 		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
 		assertNotNull(edu.getCurrentUser());
 		edu.setCurrentUser(null);

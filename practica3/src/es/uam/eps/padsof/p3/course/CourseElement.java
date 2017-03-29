@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.course;
 
 import java.io.Serializable;
@@ -24,6 +29,7 @@ public abstract class CourseElement implements Serializable{
 	 * @param title
 	 * @param desc
 	 * @param hidden
+	 * @param course
 	 */
 	public CourseElement(String title, String desc, boolean hidden, Course course) {
 		lastId = lastId + 1;
@@ -104,8 +110,8 @@ public abstract class CourseElement implements Serializable{
 	 */
 	public void setHidden(boolean hidden) {
 		String str1, str2;
-		this.hidden = hidden;
 		if(hidden == false){
+			this.hidden = hidden;
 			try {
 				for(Student aux : this.getCourse().getEnrolledStudents()){
 					str1 = "New notification at " + this.course.getTitle();
@@ -127,8 +133,19 @@ public abstract class CourseElement implements Serializable{
 				System.out.println(e.getMessage());
 			}
 		}else {
-			
+			for(CourseElement aux1: this.course.getCourseElements()){
+				if(aux1 instanceof Unit){
+					for(CourseElement aux2: ((Unit) aux1).getCourseElements()){
+						if(this.equals(aux2)){
+							if(aux1.isHidden() == true){
+								return;
+							}
+						}
+					}
+				}
+			}
 		}
+		this.hidden = hidden;
 	}
 
 

@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -12,12 +17,13 @@ public abstract class MUQuestion extends Question implements Serializable {
 	private List<Option> answers;
 	private int numAns;
 	private boolean randomOrder;
+
 	/**
+	 * Constructor of MUQuestion
 	 * @param title
 	 * @param weight
-	 * @param answers
-	 * @param numAns
 	 * @param randomOrder
+	 * @param exer
 	 */
 	public MUQuestion(String title, double weight, boolean randomOrder, Exercise exer) {
 		super(title, weight, exer);
@@ -86,8 +92,19 @@ public abstract class MUQuestion extends Question implements Serializable {
 		}
 		return false;
 	}
+	/**
+	 * Abstract method to delete an option
+	 * @param o
+	 * @return true if successful, false if not
+	 */
 	
 	public abstract boolean deleteOption(Option o);
+	
+	/**
+	 * Abstract method to delete a solution
+	 * @param sol
+	 * @return true if successful, false if not
+	 */
 	
 	public abstract boolean deleteSolution(Option sol);
 

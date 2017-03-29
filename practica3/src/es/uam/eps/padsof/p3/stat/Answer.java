@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.stat;
 
 import java.util.*;
@@ -16,6 +21,12 @@ public class Answer implements Serializable{
 	private double markOutWeight;
 	private double markOut10;
 	
+	/**
+	 * Constructor of Answer
+	 * @param exercise
+	 * @param student
+	 * @param nQues
+	 */
 
 	public Answer(Exercise exercise, Student student, int nQues) {
 		this.exercise = exercise;
@@ -104,9 +115,6 @@ public class Answer implements Serializable{
 		this.markOut10 = markOut10;
 	}
 
-
-	
-	
 	/* Methods */
 	
 	/**
@@ -134,6 +142,9 @@ public class Answer implements Serializable{
 				totalWeight += sa.getQuestion().getWeight();
 			}
 			this.markOutWeight = aux;
+			if(this.markOutWeight < 0){
+				this.markOutWeight = 0;
+			}
 			this.markOut10 = aux*10/totalWeight;
 			return this.markOut10;
 		}

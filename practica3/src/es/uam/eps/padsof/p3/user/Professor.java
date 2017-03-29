@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.user;
 
 import es.uam.eps.padsof.p3.course.*;
@@ -39,7 +44,7 @@ public class Professor extends User implements Serializable{
 	 * Create a new Course
 	 * @param title
 	 * @param desc
-	 * @return Course if the creation of the course success null if not
+	 * @return Course if the creation of the course succeed null if not
 	 */
 	public Course createCourse(String title, String desc){
 		Course c;
@@ -75,7 +80,7 @@ public class Professor extends User implements Serializable{
 	 * Method that allows the professor to expel a student from a course
 	 * @param s Student to expel
 	 * @param c Course
-	 * @return
+	 * @return true if successful, false if not
 	 * @throws Exception 
 	 */
 	public boolean expellStudent(Student s, Course c) throws Exception{

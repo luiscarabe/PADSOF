@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.course;
 
 import java.io.Serializable;
@@ -17,7 +22,9 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param title
 	 * @param desc
 	 * @param hidden
+	 * @param course
 	 */
+
 	public Unit(String title, String desc, boolean hidden, Course course) {
 		super(title, desc, hidden, course);
 		this.courseElements = new ArrayList<CourseElement>();
@@ -46,7 +53,7 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param title
 	 * @param desc
 	 * @param hidden
-	 * @return
+	 * @return The unit or null if something went wrong
 	 */
 	public Unit createSubUnit(String title, String desc, boolean hidden){
 		Unit ce;
@@ -93,7 +100,7 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param title
 	 * @param desc
 	 * @param hidden
-	 * @return
+	 * @return The Note or null if something went wrong
 	 */
 	public Note createNote(String title, String desc, boolean hidden, String text){
 		Note ce;
@@ -114,7 +121,7 @@ public class Unit extends CourseElement implements Serializable{
 	/**
 	 * Method that deletes a note from a unit and its course
 	 * @param n
-	 * @return
+	 * @return true if successful, false if not
 	 */
 	public boolean deleteNote(Note n){
 		if(this.courseElements.contains(n)){
@@ -129,7 +136,7 @@ public class Unit extends CourseElement implements Serializable{
 	 * @param title
 	 * @param desc
 	 * @param hidden
-	 * @return
+	 * @return The exercise or null if something went wrong
 	 */
 	public Exercise createExercise(String title, String desc, boolean hidden){
 		Exercise ce;

@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.stat;
 
 import java.io.Serializable;
@@ -18,6 +23,7 @@ public class ExerciseStat implements Serializable{
 	private Exercise exercise;
 	
 	/**
+	 * Constructor of ExerciseStat
 	 * @param exercise
 	 */
 	public ExerciseStat(Exercise exercise) {

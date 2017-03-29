@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.util.*;
@@ -26,10 +31,14 @@ public class Exercise extends CourseElement implements Serializable{
 	private LocalDate startDate;
  	private List<Answer> answers;
 	
-	/**
-	 * Constructor of Exercise
-	 * @param course
-	 */
+ 	/**
+ 	 * Constructor of Exercise
+ 	 * @param title
+ 	 * @param desc
+ 	 * @param hidden
+ 	 * @param course
+ 	 */
+ 	
 	public Exercise(String title, String desc,boolean hidden, Course course) {
 		super(title, desc, hidden, course);
 		this.questions = new ArrayList<Question>();
@@ -152,9 +161,18 @@ public class Exercise extends CourseElement implements Serializable{
 		this.startDate = startDate;
 	}
 	
+	/**
+	 * 	
+	 * @return
+	 */
 	public List<Answer> getAnswers() {
 		return answers;
 	}
+	
+	/**
+	 * 
+	 * @param answers
+	 */
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
@@ -177,7 +195,7 @@ public class Exercise extends CourseElement implements Serializable{
 	/**
 	 * Method that adds a question to an exercise
 	 * @param q question to add
-	 * @return
+	 * @return true if successful, false if not
 	 */
 	public boolean addQuestion(Question q){
 		for(Question aux: this.questions){

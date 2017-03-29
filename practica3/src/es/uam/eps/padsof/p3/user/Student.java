@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.user;
 
 import java.io.Serializable;
@@ -99,7 +104,7 @@ public class Student extends User implements Serializable{
 	/**
 	 * Method to apply for a Course
 	 * @param c
-	 * @return
+	 * @return true if successful, false if not
 	 */
 	
 	public boolean applyCourse(Course c){

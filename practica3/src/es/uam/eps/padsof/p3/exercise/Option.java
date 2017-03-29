@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -10,6 +15,7 @@ public class Option implements Serializable{
 	private String option;
 
 	/**
+	 * Constructor of option
 	 * @param option
 	 */
 	public Option(String option) {

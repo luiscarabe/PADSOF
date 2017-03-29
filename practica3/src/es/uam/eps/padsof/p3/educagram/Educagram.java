@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.educagram;
 
 import es.uam.eps.padsof.emailconnection.EmailSystem;
@@ -134,9 +139,11 @@ public class Educagram implements Serializable{
 	 * @param email
 	 * @param psw
 	 * @return The user if the email and psw match and null if not
+	 * @throws  
 	 */
 	
-	public User signIn(String email, String psw){
+	public User signIn(String email, String psw) throws Exception{
+		Educagram.readEducagram();
 		if (this.currentUser != null){
 			return null;
 		}
@@ -161,18 +168,20 @@ public class Educagram implements Serializable{
 	/**
 	 * Method to sign out from educagram
 	 * @return true if it was a current user false if not
+	 * @throws IOException 
 	 */
-	public boolean signOut(){
+	public boolean signOut() throws IOException{
 		if(this.currentUser == null){
 			return false;
 		}
 		this.currentUser = null;
+		Educagram.writeEducagram();
 		return true;
 	}
 	
 	/**
 	 * Method that reads the information of the students at the app from a file and saves it
-	 * @return true if 
+	 * @return true if successful, false if not 
 	 * @throws java.io.IOException
 	 */
 	public boolean readFile() throws java.io.IOException{
@@ -212,7 +221,7 @@ public class Educagram implements Serializable{
 	 * Method to write all the data in Educagram.objectData
 	 * @throws IOException
 	 */
-	public static void WriteEducagram() throws IOException {
+	public static void writeEducagram() throws IOException {
 		ObjectOutputStream outputObject = new ObjectOutputStream(new FileOutputStream("Educagram.objectData") );
 		outputObject.writeObject(Educagram.getInstance());
 		outputObject.close();
@@ -222,7 +231,7 @@ public class Educagram implements Serializable{
 	 * @throws Exception
 	 */
 	
-	public static Educagram ReadEducagram() throws Exception {
+	public static Educagram readEducagram() throws Exception {
 		Educagram e;
 		ObjectInputStream inputObject = new ObjectInputStream( new FileInputStream("Educagram.objectData") );
 		e = (Educagram)inputObject.readObject();

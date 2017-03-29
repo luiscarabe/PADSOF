@@ -1,3 +1,8 @@
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
 package es.uam.eps.padsof.p3.exercise;
 
 import java.io.Serializable;
@@ -12,8 +17,10 @@ public class TFQuestion extends Question implements Serializable{
 	private List<Option> solution;
 
 	/**
+	 * Constructor of TFQuestion
 	 * @param title
 	 * @param weight
+	 * @param exer
 	 */
 	public TFQuestion(String title, double weight, Exercise exer) {
 		super(title, weight, exer);
@@ -29,7 +36,7 @@ public class TFQuestion extends Question implements Serializable{
 
 
 	/**
-	 * 
+	 * Method to add a solution
 	 * @param s
 	 * @return true if created successfully, false if not
 	 */

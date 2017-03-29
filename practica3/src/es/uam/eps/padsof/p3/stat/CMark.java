@@ -1,4 +1,9 @@
- package es.uam.eps.padsof.p3.stat;
+/**
+* @author Luis Carabe 
+* @author Alejo Polania 
+*/
+
+package es.uam.eps.padsof.p3.stat;
 
 import java.io.Serializable;
 
@@ -69,6 +74,7 @@ public class CMark implements Serializable{
 	
 	/**
 	 * Method to calculate the course mark of a student
+	 * @return the mark
 	 */
 	
 	public double calculateCMark(){

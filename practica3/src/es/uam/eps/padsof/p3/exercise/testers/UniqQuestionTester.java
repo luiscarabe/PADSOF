@@ -44,47 +44,80 @@ public class UniqQuestionTester {
 	
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#addOption(java.lang.String)}.
+	 * Test method trying to add an existing option.(success)
 	 */
 	@Test
-	public void testAddOption() {
+	public void testAddOptionCorrect() {
 		assertTrue(u.getAnswers().contains(o));
 		assertTrue(u.getAnswers().contains(o1));
 		assertTrue(u.getAnswers().contains(o2));
+	}
+	
+	/**
+	 * Test method trying to add a non-existing option.(fail)
+	 */
+	@Test
+	public void testAddOptionError() {
 		assertFalse(u.getAnswers().contains(o3));
 	}
 	
-
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.UniqQuestion#deleteOption(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method trying to delete an existing option.(success)
 	 */
 	@Test
-	public void testDeleteOption() {
-		assertFalse(u.deleteOption(o3));
+	public void testDeleteOptionCorrect() {
 		assertTrue(u.deleteOption(o2));
 		assertFalse(u.getAnswers().contains(o2));
 	}
-	
+
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.UniqQuestion#addSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method trying to delete a non-existing option.(fail)
 	 */
 	@Test
-	public void testAddSolutionOption() {
-		assertTrue(u.addSolution(o3));
-		assertTrue(u.getSolution().contains(o3));
+	public void testDeleteOptionError() {
+		o4 = new Option("Five");
+		assertFalse(u.deleteOption(o4));
+		assertFalse(u.getAnswers().contains(o4));
 	}
 	
-	o4 = new Option("Five");
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.UniqQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for a solution from the existing options.(success)
 	 */
 	@Test
-	public void testDeleteSolutionOption() {
-		assertFalse(u.deleteSolution(o2));
+	public void testAddSolutionOptionECorrect() {
+		assertTrue(u.addSolution(o2));
+		assertTrue(u.getSolution().contains(o2));
+		
+	}
+	
+	/**
+	 * Test method for a solution from the existing options.(fail)
+	 */
+	@Test
+	public void testAddSolutionOptionError() {
+		assertFalse(u.addSolution(o3));
+		assertFalse(u.getSolution().contains(o3));
+		o4 = new Option("Five");
+	}
+	
+	
+	/**
+	 * Test method deleting an existing solution.(success)
+	 */
+	@Test
+	public void testDeleteSolutionOptionCorrect() {
 		assertTrue(u.deleteSolution(o1));
-		assertTrue(u.getSolution().isEmpty());
+		assertFalse(u.getSolution().contains(o1));
 	}
 
+	/**
+	 * Test method deleting a non-existing solution.(fail)
+	 */
+	@Test
+	public void testDeleteSolutionOptionError() {
+		assertFalse(u.deleteSolution(o2));
+		assertFalse(u.getSolution().isEmpty());
+	}
 	
 	
 	/**
