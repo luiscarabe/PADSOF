@@ -37,12 +37,24 @@ public class OpenQuestionTester {
 		oq1.addSolution(o2);
 	}
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.OpenQuestion#addSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for adding a valid solution.
 	 */
 	@Test
-	public void testAddSolution() {
+	public void testAddSolutionCorrect() {
 	    assertNotNull(oq1.getExer());
 		assertTrue(oq1.getSolution().size() == 1);
+		assertTrue(oq1.addSolution(o1));
+		assertTrue(oq1.getSolution().size() == 2);
+		assertTrue(oq1.getSolution().contains(o1));
+		
+		
+	}
+	
+	/**
+	 * Test method for adding an invalid solution.
+	 */
+	@Test
+	public void testAddSolutionError() {
 		assertTrue(oq1.addSolution(o1));
 		assertTrue(oq1.getSolution().size() == 2);
 		assertTrue(oq1.getSolution().contains(o1));
@@ -54,13 +66,23 @@ public class OpenQuestionTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.OpenQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for deleting an existing solution. (success)
 	 */
 	@Test
-	public void testDeleteSolution() {
+	public void testDeleteSolutionCorrect() {
 		assertTrue(oq1.getSolution().size() == 1);
-		oq1.deleteSolution(o2);
+		assertTrue(oq1.deleteSolution(o2));
 		assertTrue(oq1.getSolution().isEmpty());
+	}
+	
+	/**
+	 * Test method for deleting a non-existing solution. (fail)
+	 */
+	@Test
+	public void testDeleteSolutionError() {
+		assertTrue(oq1.getSolution().size() == 1);
+		assertFalse(oq1.deleteSolution(o1));
+		assertFalse(oq1.getSolution().isEmpty());
 	}
 
 }

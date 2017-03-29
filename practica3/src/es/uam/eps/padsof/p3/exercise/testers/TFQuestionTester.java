@@ -13,7 +13,7 @@ import es.uam.eps.padsof.p3.exercise.TFQuestion;
 import es.uam.eps.padsof.p3.exercise.Option;
 
 /**
- * @author e341020
+ * @author Alejo Luis
  *
  */
 public class TFQuestionTester {
@@ -29,47 +29,67 @@ public class TFQuestionTester {
 		c1 = new Course("Course 1", "descCourse1");
 		e1 = new Exercise("Exercise1", "descExercise1", true, c1);
 		otf1 = new TFQuestion("OpQuestion1", 10.5, e1);
-		o1 = new Option("f");
+		o1 = new Option("T");
 		o2 = new Option("Huola");
 		o3 = new Option("F");
-		otf1.setSolution(o2);
 	}
 	
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.TFQuestion#setSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for adding a valid solution.
 	 */
 	@Test
-	public void testSetSolution() {
+	public void testSetSolutionCorrect() {
 		assertNotNull(otf1.getExer());
 		assertTrue(otf1.getSolution().isEmpty());
 		assertTrue(otf1.setSolution(o1));
-		assertEquals(otf1.getSolution().get(0).getOption(), "f");
 		assertTrue(otf1.getSolution().size() == 1);
 		assertFalse(otf1.setSolution(o2));
-		assertEquals(otf1.getSolution().get(0).getOption(), "f");
+		assertEquals(otf1.getSolution().get(0).getOption(), "T");
 		assertTrue(otf1.getSolution().size() == 1);
 		assertTrue(otf1.setSolution(o3));
 		assertEquals(otf1.getSolution().get(0).getOption(), "F");
 		assertTrue(otf1.getSolution().size() == 1);
 		
 	}
-
+	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.TFQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
+	 * Test method for adding an invalid solution.
 	 */
 	@Test
-	public void testDeleteSolution() {
+	public void testSetSolutionError() {
+		assertNotNull(otf1.getExer());
+		assertFalse(otf1.setSolution(o2));
+		assertTrue(otf1.getSolution().isEmpty());
+		
+	}
+
+	/**
+	 * Test method for deleting a solution from a TF question.(success)
+	 */
+	@Test
+	public void testDeleteSolutionCorrect() {
 		assertNotNull(otf1.getExer());
 		assertTrue(otf1.getSolution().isEmpty());
 		assertTrue(otf1.setSolution(o1));
-		assertEquals(otf1.getSolution().get(0).getOption(), "f");
 		assertTrue(otf1.getSolution().size() == 1);
-		assertFalse(otf1.deleteSolution(o2));
-		assertTrue(otf1.getSolution().size() == 1);
+		/* main part */
 		assertTrue(otf1.deleteSolution(o1));
 		assertTrue(otf1.getSolution().isEmpty());
-		assertFalse(otf1.deleteSolution(o2));
 	}
 
+	/**
+	 * Test method for deleting a solution from a TF question.(success)
+	 */
+	@Test
+	public void testDeleteSolutionError() {
+		assertNotNull(otf1.getExer());
+		assertTrue(otf1.getSolution().isEmpty());
+		assertTrue(otf1.setSolution(o1));
+		assertTrue(otf1.getSolution().size() == 1);
+		/* main part */
+		assertFalse(otf1.deleteSolution(o2));
+		assertTrue(otf1.getSolution().size() == 1);
+	}
+	
 }

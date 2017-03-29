@@ -126,6 +126,8 @@ public abstract class CourseElement implements Serializable{
 			}catch (FailedInternetConnectionException e){
 				System.out.println(e.getMessage());
 			}
+		}else {
+			
 		}
 	}
 

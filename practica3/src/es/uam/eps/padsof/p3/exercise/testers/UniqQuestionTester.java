@@ -21,7 +21,7 @@ public class UniqQuestionTester {
 	UniqQuestion u;
 	Exercise e;
 	Course c;
-	Option o, o1, o2, o3;
+	Option o, o1, o2, o3, o4;
 	Boolean b1;
 	/**
 	 * @throws java.lang.Exception
@@ -41,25 +41,7 @@ public class UniqQuestionTester {
 
 	}
 
-	/**¡
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Question#getTitle()}.
-	 */
-	@Test
-	public void testGetTitle() {
-		assertEquals(u.getTitle(), "How many bits correspond to one byte?");
-		u.setTitle("How many bits correspond to one byte? (Number)");
-		assertEquals(u.getTitle(), "How many bits correspond to one byte? (Number)");
-	}
-
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Question#getWeight()}.
-	 */
-	@Test
-	public void testGetWeight() {
-		assertTrue(u.getWeight() == 4.5);
-		u.setWeight(4.2);
-		assertTrue(u.getWeight() == 4.2);
-	}
+	
 	
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#addOption(java.lang.String)}.
@@ -88,12 +70,11 @@ public class UniqQuestionTester {
 	 */
 	@Test
 	public void testAddSolutionOption() {
-		u.deleteOption(o2);
-		assertFalse(u.addSolution(o2));
-		assertTrue(b1);
-		assertEquals(u.getSolution().get(0), o1);
+		assertTrue(u.addSolution(o3));
+		assertTrue(u.getSolution().contains(o3));
 	}
 	
+	o4 = new Option("Five");
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.exercise.UniqQuestion#deleteSolution(es.uam.eps.padsof.p3.exercise.Option)}.
 	 */
@@ -104,26 +85,7 @@ public class UniqQuestionTester {
 		assertTrue(u.getSolution().isEmpty());
 	}
 
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#getNumAns()}.
-	 */
-	@Test
-	public void testGetNumAns() {
-		u.deleteOption(o2);
-		assertTrue(u.getNumAns() == 2);
-		u.addOption("9");
-		assertTrue(u.getNumAns() == 3);
-	}
-
-	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.MUQuestion#isRandomOrder()}.
-	 */
-	@Test
-	public void testIsRandomOrder() {
-		assertTrue(u.isRandomOrder() == false);
-		u.setRandomOrder(true);
-		assertTrue(u.isRandomOrder() == true);
-	}
+	
 	
 	/**
 	 * Test method that shuffles the list of options successfully.
