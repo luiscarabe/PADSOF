@@ -37,6 +37,7 @@ public class Exercise extends CourseElement implements Serializable{
 		this.randomness = false;
 		this.startDate = null;
 		this.expDate = null;
+		this.numQues = 0;
 	}
 
 	/**
@@ -186,6 +187,7 @@ public class Exercise extends CourseElement implements Serializable{
 		}
 		this.questions.add(q);
 		q.setExer(this);
+		this.numQues++;
 		return true;
 	}
 	
@@ -201,6 +203,7 @@ public class Exercise extends CourseElement implements Serializable{
 		}
 		if(this.getQuestions().contains(q)){
 			this.getQuestions().remove(q);
+			this.numQues--;
 			return true;
 		}
 		return false;

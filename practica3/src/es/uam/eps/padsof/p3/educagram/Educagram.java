@@ -222,11 +222,12 @@ public class Educagram implements Serializable{
 	 * @throws Exception
 	 */
 	
-	public static void ReadEducagram() throws Exception {
+	public static Educagram ReadEducagram() throws Exception {
 		Educagram e;
 		ObjectInputStream inputObject = new ObjectInputStream( new FileInputStream("Educagram.objectData") );
 		e = (Educagram)inputObject.readObject();
 		inputObject.close();
 		System.out.println("Educagram readed.");
+		return e;
 	}	
 }

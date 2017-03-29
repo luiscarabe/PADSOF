@@ -12,12 +12,13 @@ public class Main {
 
 	public static void main(String args[]) throws Exception{
 		Application a = null;
+		Answer as;
 		Educagram educa;
 		Professor p;
 		Student s1, s2, s3, saux;
 		Course c1, caux;
-		Unit u1, u2, u3;
-		Note n1;
+		Unit u1, u2, u3, u4;
+		Note n1, n2, n3;
 		Boolean b;
 		Exercise e;
 		OpenQuestion oq;
@@ -25,7 +26,7 @@ public class Main {
 		UniqQuestion uq;
 		TFQuestion tq;
 		LocalDate d1, d2;
-		Option o1, o2, o3, o4, o5, o6, o7, o8;
+		Option o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12;
 		int i1,i2;
 		
 		educa = Educagram.getInstance();
@@ -199,26 +200,26 @@ public class Main {
 		System.out.println("The professor has modify the note, now, hidden is:"+n1.isHidden());
 		
 		System.out.println("\nThe professor is going to make an exercise\n");
-		e = u1.createExercise("Exercise1", "Description1", false);
+		e = u1.createExercise("Exercise1", "Description1", true);
 		e.setPenalty(0.5);
 		e.setWeight(10);
 		e.setRandomness(false);
 		
 		/*Open Question*/
 		oq = new OpenQuestion("How many bits are contained in on byte", 2.5, e);
-		System.out.println("The professor creates an Open Question: "+oq.getTitle());
+		System.out.println("\nThe professor creates an Open Question: "+oq.getTitle());
 		/*The professor modifies the question*/
 		oq.setTitle("How many bits are contained in on byte");
 		System.out.println("The professor modifies the title of the OpenQuestion");
-		o1 = new Option("4");
-		o2 = new Option("four");
+		o1 = new Option("8");
+		o2 = new Option("eight");
 		oq.addSolution(o1);
 		oq.addSolution(o2);
 		System.out.println("OpenQuestion created with "+ oq.getSolution().size()+" solutions.");
 		
 		/*TF Question*/
 		tq = new TFQuestion("True or false: You are going to pass this test", 2.2, e);
-		System.out.println("The professor creates an TF Question "+tq.getTitle());
+		System.out.println("\nThe professor creates an TF Question: "+tq.getTitle());
 		/*The professor modifies the question*/
 		tq.setWeight(2.5);
 		System.out.println("The professor modifies the weight of the TF Question");
@@ -228,7 +229,7 @@ public class Main {
 		
 		/*Multi Question*/
 		mq = new MultiQuestion("Select the natural numbers", 2.5, true, e);
-		System.out.println("The professor creates a Multi Question"+ mq.getTitle());
+		System.out.println("\nThe professor creates a Multi Question: "+ mq.getTitle());
 		o4 = mq.addOption("-2");
 		o5 = mq.addOption("2");
 		o6 = mq.addOption("3.5");
@@ -241,15 +242,15 @@ public class Main {
 		
 		/*Uniq Question*/
 		uq = new UniqQuestion("Do you like this test?", 2.5, false, e);
-		System.out.println("The professor creates a Uniq Question"+uq.getTitle());
+		System.out.println("\nThe professor creates a Uniq Question: "+uq.getTitle());
 		o7 = uq.addOption("Yes");
 		o8 = uq.addOption("No");
 		uq.addSolution(o8);
 		/*The professor modifies a solution*/
 		uq.deleteSolution(o8);
-		uq.addSolution(o8);
+		uq.addSolution(o7);
 		System.out.println("The professor modifies the solution of the Uniq Question");
-		System.out.println("Uniq Question created with the solution: " + uq.getSolution());
+		System.out.println("Uniq Question created with the solution: " + uq.getSolution().get(0).getOption());
 		
 		e.addQuestion(oq);
 		e.addQuestion(tq);
@@ -258,8 +259,65 @@ public class Main {
 		d1 = LocalDate.now();
 		d2 = LocalDate.now();
 		d2 = d2.plusDays(15);
+		e.addExpirationDate(d2);
+		e.addStartDate(d1);
+		System.out.println("\nExercise "+e.getTitle()+" with "+e.getNumQues()+" number of questions");
+		/*The professor wants to modify the exercise*/
+		if(e.isModifiable()){
+			e.setTitle("Exercise one");
+			e.addExpirationDate(e.getExpDate().plusDays(5));
+			e.setHidden(false);
+			System.out.println("Professor can modify exercise ("+e.isModifiable()+") so he has modified the title, the exp date and its visibility");
+		}
+		/*The professor creates a unit with a two notes, deletes one and then hides the unit*/
 		
-		/*TODO -> TERMINAR DE CREAR EJER, MODIFICAR EJER*/
+		u4 = (Unit) c1.createUnit("New useless unit", "Useless description", false);
+		n2 = u4.createNote("Note 2", "desc", false, "Great note");
+		n3 = u4.createNote("Title", "desc", true, "Hello there");
+		System.out.println("New two notes: "+ n2.getTitle()+" and " +n3.getTitle());
+		u4.deleteNote(n3);
+		if(!u4.getCourseElements().contains(n3)){
+			System.out.println("Note deleted successfully");
+		}
+		u4.unitHide();
+		if(u4.isHidden()==true && n2.isHidden()==true){
+			System.out.println("Unit hidden successfully");
+		}
+		educa.signOut();
+		
+		
+		/*The student 1 signs in, search the course and applies*/
+		
+		s1 = (Student) educa.signIn("Rosa.Moreno@esdu.es", "Mor");
+		System.out.println("\nStudent " + s1.getName() + " has signed in.");
+		if(n1.isHidden()==true){
+			System.out.println("The student can't see the hidden note");
+		}
+		if(e.canTakeExercise(s1)){
+			System.out.println("The student can do the exercise: "+ e.getTitle());
+		}
+		as = e.takeExercise(s1);
+		
+		o9 = new Option("8");
+		as.getSpecificAnswer().get(0).chooseAnswer(o9);
+		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(0).getQuestion().getTitle());
+		
+		o10 = new Option("t");
+		as.getSpecificAnswer().get(0).chooseAnswer(o10);
+		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(1).getQuestion().getTitle());
+		
+		as.getSpecificAnswer().get(0).chooseAnswer(o5);
+		as.getSpecificAnswer().get(0).chooseAnswer(o6);
+		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(2).getQuestion().getTitle());
+		
+		as.getSpecificAnswer().get(0).chooseAnswer(o7);
+		System.out.println("The student has answered the question "+as.getSpecificAnswer().get(3).getQuestion().getTitle());
+		
+		/*Autocorrection*/
+		for(SpecificAnswer s: as.getSpecificAnswer()){
+			s.calculateMark();
+			System.out.println(");
+		}
 	}
 
 }
