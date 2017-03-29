@@ -95,7 +95,7 @@ public class SpecificAnswer implements Serializable{
 			return;
 		}
 		if (this.answers.size() != this.question.getSolution().size()){
-			this.markOut10 = 0-this.question.getExer().getPenalty();;
+			this.markOut10 = (0-this.question.getExer().getPenalty())/this.question.getExer().getWeight();
 			return;
 		}
 		for  (Option o: this.answers){
@@ -104,7 +104,7 @@ public class SpecificAnswer implements Serializable{
 			}
 		}
 		if (flag == 1){
-			this.markOut10 = 0-this.question.getExer().getPenalty();
+			this.markOut10 = (0-this.question.getExer().getPenalty())/this.question.getExer().getWeight();
 			return;
 		}
 		else{

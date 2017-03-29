@@ -78,7 +78,7 @@ public class ExerciseStatTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.stat.ExerciseStat#setAll()}.
+	 * Test method for set all, with two students answering to a exercise with two Questions
 	 */
 	@Test
 	public void testSetAll() {

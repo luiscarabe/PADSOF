@@ -17,6 +17,8 @@ public class Educagram implements Serializable{
 	private List<Course> courses;
 	private List<Student> students;
 	private Professor professor;
+	private User currentUser;
+	private int firstLogin = 0;
 	
 	private static final Educagram Instance = new Educagram();
 	
@@ -29,6 +31,7 @@ public class Educagram implements Serializable{
 		courses = new ArrayList<Course>();
 		students = new ArrayList<Student>();
 		professor = new Professor("Teacher", "teacher@teadu.com", "lovingPADSOF");
+		currentUser = null;
 	}
     
 	/**
@@ -75,7 +78,30 @@ public class Educagram implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * @return the currentUser
+	 */
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	
+	/**
+	 * @return the firstLogin
+	 */
+	public int getFirstLogin() {
+		return firstLogin;
+	}
+
+	/* Methods */
+	/**
+	 * Method that search a course by name
 	 * @param title
 	 * @return Course c if the course exists or null if not
 	 */
@@ -89,6 +115,11 @@ public class Educagram implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Method that search a student by name
+	 * @param name
+	 * @return Student s if exists null if not
+	 */
 	public Student searchStudent(String name){
 		for (Student s: students){
 			if (s.getName().equals(name)){
@@ -108,6 +139,7 @@ public class Educagram implements Serializable{
 	public User signIn(String email, String psw){
 		if (professor.getEmail().equals(email)){
 			if (psw == professor.getPassword()){
+				this.currentUser = professor;
 				return professor;
 			}
 		}
@@ -115,12 +147,25 @@ public class Educagram implements Serializable{
 		for (Student s: students){
 			if (s.getEmail().equals(email)){
 				if (psw.equals(s.getPassword())){
+					this.currentUser = s;
 					return s;
 				}
 			}	
 		}
 		return null;
-	}	
+	}
+	
+	/**
+	 * Method to sign out from educagram
+	 * @return true if it was a current user false if not
+	 */
+	public boolean signOut(){
+		if(this.currentUser == null){
+			return false;
+		}
+		this.currentUser = null;
+		return true;
+	}
 	
 	/**
 	 * Method that reads the information of the students at the app from a file and saves it
@@ -133,6 +178,9 @@ public class Educagram implements Serializable{
 		StringTokenizer tokens;
 		int i;
 		
+		if(this.firstLogin == 1){
+			return true;
+		}
 		FileReader f = new FileReader("Educagram.txt");
 	    BufferedReader b = new BufferedReader(f);
 	    b.readLine();
@@ -154,6 +202,7 @@ public class Educagram implements Serializable{
 	    if(this.students.isEmpty()){
 	    	return false;
 	    }
+	    this.firstLogin = 1;
 	    return true;
 	}
 }

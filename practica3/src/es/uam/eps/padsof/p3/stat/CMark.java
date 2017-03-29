@@ -71,19 +71,27 @@ public class CMark implements Serializable{
 	 * Method to calculate the course mark of a student
 	 */
 	
-	public void calculateCMark(){
+	public double calculateCMark(){
 		double aux = 0;
-		int i = 0;
-		for (Answer a: this.getStudent().getAnswers()){
+		double totalWeight = 0;
+		if(this.student.getAnswers().isEmpty()){
+			return -1;
+		}
+		for (Answer a: this.student.getAnswers()){
 			if (a.getExercise().getCourse().equals(this.course)){
 				if(a.allowedToShow()){
-					aux += a.getMarkOut10();
-					i++;
+					aux += a.getMarkOutWeight();
+					totalWeight += a.getExercise().getWeight();
 				}
 			}
 		}
-		aux /= i;
+		if(totalWeight == 0){
+			return -1;
+		}
+		aux /= totalWeight;
+		aux *= 10;
 		this.courseMark = aux;
+		return aux;
 	}
 		
 }

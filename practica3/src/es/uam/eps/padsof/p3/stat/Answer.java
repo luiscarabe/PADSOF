@@ -14,8 +14,15 @@ public class Answer implements Serializable{
 	private Exercise exercise;
 	private List<SpecificAnswer> specificAnswer;
 	private Student student;
+	private double markOutWeight;
 	private double markOut10;
 	
+	/**
+	 * Constructor of Answer
+	 * @param exercise
+	 * @param student
+	 * @param nQues
+	 */
 
 	public Answer(Exercise exercise, Student student, int nQues) {
 		this.exercise = exercise;
@@ -69,6 +76,21 @@ public class Answer implements Serializable{
 	 */
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+
+	/**
+	 * @return the markOutWeight
+	 */
+	public double getMarkOutWeight() {
+		return markOutWeight;
+	}
+
+
+	/**
+	 * @param markOutWeight the markOutWeight to set
+	 */
+	public void setMarkOutWeight(double markOutWeight) {
+		this.markOutWeight = markOutWeight;
 	}
 
 

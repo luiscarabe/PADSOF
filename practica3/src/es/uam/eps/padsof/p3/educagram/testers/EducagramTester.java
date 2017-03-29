@@ -54,9 +54,13 @@ public class EducagramTester {
 	@Test
 	public void testReadFile() throws IOException {
 		assertNotNull(edu.getStudents());
+		assertTrue(edu.getFirstLogin() == 1);
 		assertEquals(edu.getStudents().get(0).getName(), "Jorge Alcazar");
 		assertEquals(edu.getStudents().get(0).getEmail(), "Jorge.Alcazar@esdu.es");
 		assertEquals(edu.getStudents().get(0).getPassword(), "JoA");
+		assertEquals(edu.getStudents().get(1).getName(), "Manuel Blanco");
+		assertEquals(edu.getStudents().get(1).getEmail(), "Manuel.Blanco@esdu.es");
+		assertEquals(edu.getStudents().get(1).getPassword(), "anuel.Bl");
 	}
 	
 	/**
@@ -89,7 +93,29 @@ public class EducagramTester {
 		assertEquals(u.getName(), "Roberto Paz");
 		assertNull(u1);
 		assertEquals(u2.getName(), "Teacher");
+		assertNotNull(edu.getCurrentUser());
 		
+	}
+	
+	/**
+	 * Test method that test when a user sign out.
+	 */
+	@Test
+	public void testSignOutCorrect(){
+		assertNotNull(edu.getCurrentUser());
+		assertTrue(edu.signOut());
+		assertNull(edu.getCurrentUser());
+	}
+	
+	/**
+	 * Test method that test when it is called  signOut() method when there is no current user.
+	 */
+	@Test
+	public void testSignOutError(){
+		assertNotNull(edu.getCurrentUser());
+		edu.setCurrentUser(null);
+		assertFalse(edu.signOut());
+		assertNull(edu.getCurrentUser());
 	}
 
 }

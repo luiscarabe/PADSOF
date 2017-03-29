@@ -27,7 +27,7 @@ public class Exercise extends CourseElement implements Serializable{
  	private List<Answer> answers;
 	
 	/**
-	 * 	 * Constructor of Exercise
+	 * Constructor of Exercise
 	 * @param course
 	 */
 	public Exercise(String title, String desc,boolean hidden, Course course) {
