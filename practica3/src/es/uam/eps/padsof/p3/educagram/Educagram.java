@@ -137,8 +137,11 @@ public class Educagram implements Serializable{
 	 */
 	
 	public User signIn(String email, String psw){
+		if (this.currentUser != null){
+			return null;
+		}
 		if (professor.getEmail().equals(email)){
-			if (psw == professor.getPassword()){
+			if (psw.equals(professor.getPassword())){
 				this.currentUser = professor;
 				return professor;
 			}
@@ -181,7 +184,7 @@ public class Educagram implements Serializable{
 		if(this.firstLogin == 1){
 			return true;
 		}
-		FileReader f = new FileReader("Educagram.txt");
+		FileReader f = new FileReader("Emails.txt");
 	    BufferedReader b = new BufferedReader(f);
 	    b.readLine();
 	    
@@ -205,4 +208,25 @@ public class Educagram implements Serializable{
 	    this.firstLogin = 1;
 	    return true;
 	}
+	/**
+	 * Method to write all the data in Educagram.objectData
+	 * @throws IOException
+	 */
+	public static void WriteEducagram() throws IOException {
+		ObjectOutputStream outputObject = new ObjectOutputStream(new FileOutputStream("Educagram.objectData") );
+		outputObject.writeObject(Educagram.getInstance());
+		outputObject.close();
+	}
+	/**
+	 * Method to read all the data in Educagram.objectData
+	 * @throws Exception
+	 */
+	
+	public static void ReadEducagram() throws Exception {
+		Educagram e;
+		ObjectInputStream inputObject = new ObjectInputStream( new FileInputStream("Educagram.objectData") );
+		e = (Educagram)inputObject.readObject();
+		inputObject.close();
+		System.out.println("Educagram readed.");
+	}	
 }

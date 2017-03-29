@@ -37,25 +37,23 @@ public class ApplicationTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Application#getCourse()}.
+	 * Test method for getCourse.
 	 */
 	@Test
 	public void testGetCourse() {
 		assertEquals(c, a.getCourse());
-		assertNotEquals(a1.getCourse().getTitle(), "PADSOF");
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Application#getAppliedStudent()}.
+	 * Test method for get Applied Student
 	 */
 	@Test
 	public void testGetAppliedStudent() {
 		assertEquals(s, a.getAppliedStudent());
-		assertNotEquals(a1.getAppliedStudent().getName(), "Mark Knofler");
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Application#deleteApplication()}.
+	 * Test method for delete Application
 	 */
 	@Test
 	public void testDeleteApplication() {
@@ -65,7 +63,7 @@ public class ApplicationTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Application#acceptApplication()}.
+	 * Test method for accept application
 	 * @throws Exception 
 	 */
 	@Test
@@ -77,7 +75,7 @@ public class ApplicationTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Application#declineApplication()}.
+	 * Test method for decline application
 	 * @throws Exception 
 	 */
 	@Test

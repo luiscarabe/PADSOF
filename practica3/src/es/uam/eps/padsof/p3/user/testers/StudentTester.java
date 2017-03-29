@@ -51,66 +51,67 @@ public class StudentTester {
 		c3 = new ArrayList<Course>();
 		c3.add(c2);
 		ap = new Application(c5, s);
-		cm = new CMark(c, s);
-		cm.setCourseMark(9.3);
-		
-		s.setAnswers(a);
-		
-		s.setExpelledCourses(c1);
-		
-		s.setEnrolledCourses(c3);
-		
-		s.getAppliedCourses().add(ap);
-		
-		s.getcMarks().add(cm);
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#getAnswers()}.
+	 * Test method for get Answers
 	 */
 	@Test
 	public void testGetAnswers() {
+		s.setAnswers(a);
 		assertEquals(s.getAnswers(), a);
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#getExpelledCourses()}.
+	 * Test method for get expelled courses
 	 */
 	@Test
 	public void testGetExpelledCourses() {
+		s.setExpelledCourses(c1);
 		assertEquals(s.getExpelledCourses(), c1);
 	}
 
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#getEnrolledCourses()}.
+	 * Test method for enrolled courses
 	 */
 	@Test
 	public void testGetEnrolledCourses() {
+		s.setEnrolledCourses(c3);
 		assertEquals(s.getEnrolledCourses(), c3);
 	}
 
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#applyCourse(es.uam.eps.padsof.p3.course.Course)}.
+	 * Test method for apply course
 	 */
 	@Test
 	public void testApplyCourse() {
-		assertFalse(s.applyCourse(c2));
-		assertFalse(s.applyCourse(c));
 		assertTrue(s.applyCourse(c4));
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#getAppliedCourses()}.
+	 * Test method for invalid apply course
+	 */
+	@Test
+	public void testInvApplyCourse() {
+		s.setExpelledCourses(c1);
+		s.setEnrolledCourses(c3);
+		assertFalse(s.applyCourse(c2));
+		assertFalse(s.applyCourse(c));
+	}
+	
+	/**
+	 * Test method for get Applied Courses.
 	 */
 	@Test
 	public void testGetAppliedCourses() {
+		s.getAppliedCourses().add(ap);
 		assertTrue(s.getAppliedCourses().contains(ap));
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#cancelApplication(es.uam.eps.padsof.p3.user.Application)}.
+	 * Test method for cancel application
 	 */
 	@Test
 	public void testCancelApplication() {
@@ -120,10 +121,14 @@ public class StudentTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.user.Student#seeCMark(es.uam.eps.padsof.p3.course.Course)}.
+	 * Test method for seeing cmark
 	 */
 	@Test
 	public void testSeeCMark() {
+		cm = new CMark(c, s);
+		cm.setCourseMark(9.3);
+		
+		s.getcMarks().add(cm);
 		assertTrue(s.seeCMark(c) == 9.3);
 	}
 

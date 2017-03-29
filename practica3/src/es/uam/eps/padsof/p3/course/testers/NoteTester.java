@@ -29,7 +29,7 @@ public class NoteTester {
 		n2 = new Note("NotSameTitle", "Testing note", true, "This is a very important note", c);
 	}
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.Note#getText()}.
+	 * Test method for get Text
 	 */
 	@Test
 	public void testGetText() {
@@ -37,7 +37,7 @@ public class NoteTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.Note#setText(java.lang.String)}.
+	 * Test method for set Text
 	 */
 	@Test
 	public void testSetText() {
@@ -46,7 +46,7 @@ public class NoteTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.CourseElement#isHidden()}.
+	 * Test method for ishidden
 	 */
 	@Test
 	public void testIsHidden() {
@@ -54,7 +54,7 @@ public class NoteTester {
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.CourseElement#setHidden()}.
+	 * Test method for sethidden
 	 */
 	@Test
 	public void testSetHidden() {
@@ -63,11 +63,17 @@ public class NoteTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.course.CourseElement#equals(java.lang.Object)}.
+	 * Test method for equal
 	 */
 	@Test
 	public void testEqualsObject() {
 		assertTrue(n.equals(n1));
+	}
+	/**
+	 * Test method for invaled equal
+	 */
+	@Test
+	public void testInvEqualsObject() {
 		assertFalse(n.equals(n2));
 	}
 

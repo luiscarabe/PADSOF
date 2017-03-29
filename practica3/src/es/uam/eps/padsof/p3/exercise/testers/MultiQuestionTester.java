@@ -164,5 +164,42 @@ public class MultiQuestionTester {
 	public void testIsRandomOrder() {
 		assertTrue(m.isRandomOrder() == false);
 	}
+	
+	/**
+	 * Test method that shuffles the list of options successfully.
+	 */
+	@Test
+	public void testRandomizeOrderCorrect(){
+		o1 = m.addOption("8");
+		o2 = m.addOption("5");
+		o3 = m.addOption("7");
+		
+		m.setRandomOrder(true);
+		
+		/* 
+		 * This Method could not work sometimes. Re-run.
+		 * In fact, this "error" prove that Collections.shuffle works.
+		 */
+		assertTrue(m.randomizeOrder());
+		assertTrue(!m.getAnswers().get(0).equals(o1) || !m.getAnswers().get(1).equals(o2)
+				|| !m.getAnswers().get(2).equals(o3));
+	}
+	
+	/**
+	 * Test method that tries to shuffle the list of options.
+	 */
+	@Test
+	public void testRandomizeOrderError(){
+		o1 = m.addOption("8");
+		o2 = m.addOption("5");
+		o3 = m.addOption("7");
+		
+		m.setRandomOrder(false);
+		
+		/* This Method could not work sometimes. Re-run*/
+		assertFalse(m.randomizeOrder());
+		assertTrue(m.getAnswers().get(0).equals(o1) && m.getAnswers().get(1).equals(o2)
+				&& m.getAnswers().get(2).equals(o3));
+	}
 
 }

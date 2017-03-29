@@ -124,6 +124,45 @@ public class UniqQuestionTester {
 		u.setRandomOrder(true);
 		assertTrue(u.isRandomOrder() == true);
 	}
+	
+	/**
+	 * Test method that shuffles the list of options successfully.
+	 */
+	@Test
+	public void testRandomizeOrderCorrect(){
+		u.getAnswers().clear();
+		o1 = u.addOption("8");
+		o2 = u.addOption("5");
+		o3 = u.addOption("7");
+		
+		u.setRandomOrder(true);
+		
+		/* 
+		 * This Method could not work sometimes. Re-run.
+		 * In fact, this "error" prove that Collections.shuffle works.
+		 */
+		assertTrue(u.randomizeOrder());
+		assertTrue(!u.getAnswers().get(0).equals(o1) || !u.getAnswers().get(1).equals(o2)
+				|| !u.getAnswers().get(2).equals(o3));
+	}
+	
+	/**
+	 * Test method that tries to shuffle the list of options.
+	 */
+	@Test
+	public void testRandomizeOrderError(){
+		u.getAnswers().clear();
+		o1 = u.addOption("8");
+		o2 = u.addOption("5");
+		o3 = u.addOption("7");
+		
+		u.setRandomOrder(false);
+		
+		/* This Method could not work sometimes. Re-run*/
+		assertFalse(u.randomizeOrder());
+		assertTrue(u.getAnswers().get(0).equals(o1) && u.getAnswers().get(1).equals(o2)
+				&& u.getAnswers().get(2).equals(o3));
+	}
 
 	/**
 	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Question#getExer()}.

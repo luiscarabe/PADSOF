@@ -11,7 +11,7 @@ Juan;Valle;Juan.Valle@esdu.es;2546;ualle@esd;
 Miguel;Quevedo;Miguel.Quevedo@esdu.es;2525;Miguueved;
 Antonio;Ortega;Antonio.Ortega@esdu.es;4424;onni;
 Esther;Garrido;Esther.Garrido@aadu.es;4461;theGarr;
-Estrella;Palma ;Estrella.Palma @aadu.es;4483;Est.P;
+Estrella;Palma;Estrella.Palma @aadu.es;4483;Est.P;
 Javier;Carrera;Javier.Carrera@aadu.es;4442;er.Carrera@ar;
 Roberto;Paz;Roberto.Paz@aadu.es;5766;Rerto;
 Carlos;Redondo;Carlos.Redondo@aadu.es;8411;a.Redond;

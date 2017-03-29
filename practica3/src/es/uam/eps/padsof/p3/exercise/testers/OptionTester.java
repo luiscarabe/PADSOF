@@ -26,7 +26,7 @@ public class OptionTester {
 	
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Option#getOption()}.
+	 * Test method for get Option
 	 */
 	@Test
 	public void testGetOption() {
@@ -34,7 +34,7 @@ public class OptionTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Option#setOption(java.lang.String)}.
+	 * Test method for set Option
 	 */
 	@Test
 	public void testSetOption() {
@@ -43,7 +43,7 @@ public class OptionTester {
 	}
 
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.exercise.Option#equals(java.lang.Object)}.
+	 * Test method for equals
 	 */
 	@Test
 	public void testEqualsObject() {

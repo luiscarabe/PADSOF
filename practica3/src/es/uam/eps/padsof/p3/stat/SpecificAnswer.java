@@ -1,5 +1,6 @@
 package es.uam.eps.padsof.p3.stat;
 
+import es.uam.eps.padsof.p3.exercise.OpenQuestion;
 import es.uam.eps.padsof.p3.exercise.Option;
 import es.uam.eps.padsof.p3.exercise.Question;
 
@@ -13,15 +14,19 @@ public class SpecificAnswer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Question question;
 	private List<Option> answers;
+	private double markOutWeight;
 	private double markOut10;
 	/**
-	 * Constructor of SpecificAnswer
 	 * @param question
+	 * @param answers
+	 * @param markOut10
+	 * @param num
 	 */
 	public SpecificAnswer(Question question) {
 		this.question = question;
 		this.answers = new ArrayList<Option>();
 		this.markOut10 = -1;
+		this.markOutWeight = -1;
 	}
 	/**
 	 * @return the question
@@ -46,6 +51,18 @@ public class SpecificAnswer implements Serializable{
 	 */
 	public void setAnswers(List<Option> answers) {
 		this.answers = answers;
+	}
+	/**
+	 * @return the markOutWeight
+	 */
+	public double getMarkOutWeight() {
+		return markOutWeight;
+	}
+	/**
+	 * @param markOutWeight the markOutWeight to set
+	 */
+	public void setMarkOutWeight(double markOutWeight) {
+		this.markOutWeight = markOutWeight;
 	}
 	/**
 	 * @return the markOut10
@@ -91,12 +108,23 @@ public class SpecificAnswer implements Serializable{
 	public void calculateMark(){
 		int flag = 0;
 		if (this.answers.isEmpty()){
+			this.markOutWeight = 0;
 			this.markOut10 = 0;
 			return;
 		}
 		if (this.answers.size() != this.question.getSolution().size()){
-			this.markOut10 = (0-this.question.getExer().getPenalty())/this.question.getExer().getWeight();
+			this.markOutWeight = 0-this.question.getExer().getPenalty();
+			this.markOut10 = 0 - (this.question.getExer().getPenalty() / this.question.getExer().getWeight() ) * 10;
 			return;
+		}
+		if(this.question instanceof OpenQuestion){
+			for  (Option o: this.answers){
+				if (this.question.getSolution().contains(o)){
+					this.markOut10 = 10;
+					this.markOutWeight = this.question.getWeight();
+					return;
+				}
+			}
 		}
 		for  (Option o: this.answers){
 			if (!this.question.getSolution().contains(o)){
@@ -104,11 +132,14 @@ public class SpecificAnswer implements Serializable{
 			}
 		}
 		if (flag == 1){
-			this.markOut10 = (0-this.question.getExer().getPenalty())/this.question.getExer().getWeight();
+			this.markOutWeight = 0-this.question.getExer().getPenalty();
+			this.markOut10 = 0 - (this.question.getExer().getPenalty() / this.question.getExer().getWeight() ) * 10;
+			
 			return;
 		}
 		else{
-			this.markOut10 = this.question.getWeight()/this.question.getExer().getWeight();
+			this.markOut10 = 10;
+			this.markOutWeight = this.question.getWeight();
 			return;
 		}
 	}

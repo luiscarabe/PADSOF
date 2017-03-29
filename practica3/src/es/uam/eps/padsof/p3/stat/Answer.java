@@ -2,7 +2,6 @@ package es.uam.eps.padsof.p3.stat;
 
 import java.util.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import es.uam.eps.padsof.p3.exercise.Exercise;
 import es.uam.eps.padsof.p3.user.Student;
 
@@ -17,17 +16,13 @@ public class Answer implements Serializable{
 	private double markOutWeight;
 	private double markOut10;
 	
-	/**
-	 * Constructor of Answer
-	 * @param exercise
-	 * @param student
-	 * @param nQues
-	 */
 
 	public Answer(Exercise exercise, Student student, int nQues) {
 		this.exercise = exercise;
 		this.specificAnswer = new ArrayList<SpecificAnswer>(nQues);
 		this.student = student;
+		this.markOut10 = -1;
+		this.markOutWeight = -1;
 	}
 
 
@@ -119,32 +114,31 @@ public class Answer implements Serializable{
 	 * @return true if it is false if not
 	 */
 	public boolean allowedToShow(){
-		LocalDate now;
 		
-		now = LocalDate.now();
-		
-		return now.isAfter(this.getExercise().getExpDate());
+		return this.getExercise().isAllowedToShow();
 	}
 	
 	/**
 	 * Method that calculates the average mark of a student at an exercise
 	 * @return true if it has been calculated false if not
 	 */
-	public boolean calculateMark(){
-		int i = 0;
-		double res = 0;
+	public double calculateMark(){
+		double aux = 0;
+		double totalWeight = 0;
 		
 		if(this.specificAnswer.isEmpty()){
-			return false;
+			return -1;
 		}else {
-			for(SpecificAnswer aux: this.specificAnswer){
-				res += aux.getMarkOut10();
-				i++;
+			for(SpecificAnswer sa: this.specificAnswer){
+				aux += sa.getMarkOutWeight();
+				totalWeight += sa.getQuestion().getWeight();
 			}
-			this.markOut10 = res/i;
-			return true;
+			this.markOutWeight = aux;
+			this.markOut10 = aux*10/totalWeight;
+			return this.markOut10;
 		}
 	}
 
 	
 }
+ 

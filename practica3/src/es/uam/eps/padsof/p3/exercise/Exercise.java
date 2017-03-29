@@ -34,6 +34,7 @@ public class Exercise extends CourseElement implements Serializable{
 		super(title, desc, hidden, course);
 		this.questions = new ArrayList<Question>();
 		this.answers = new ArrayList<Answer>();
+		this.randomness = false;
 		this.startDate = null;
 		this.expDate = null;
 	}
@@ -195,6 +196,9 @@ public class Exercise extends CourseElement implements Serializable{
 	 * @return true if the question has been deleted, false if not
 	 */
 	public boolean deleteQuestion(Question q){
+		if(q == null){
+			return false;
+		}
 		if(this.getQuestions().contains(q)){
 			this.getQuestions().remove(q);
 			return true;
@@ -206,7 +210,7 @@ public class Exercise extends CourseElement implements Serializable{
 	 * Method that allows professors to randomly select the order of question
 	 * @return true if shuffles the questions false if not
 	 */
-	public boolean randomOrder(){
+	public boolean randomizeOrder(){
 		if(this.randomness == true){
 			Collections.shuffle(this.questions);
 			return true;
@@ -234,6 +238,12 @@ public class Exercise extends CourseElement implements Serializable{
 	 * @return true if it is successfully added false if not
 	 */
 	public boolean addStartDate(LocalDate d){
+		if(this.isAllowedToShow() == true){
+			return false;
+		}
+	    if (this.isModifiable() == false){
+	        return false;
+	    }
 		if(this.isValidDate(d)){
 			if(this.expDate != null){
 				if(this.expDate.isBefore(d)){
@@ -252,10 +262,21 @@ public class Exercise extends CourseElement implements Serializable{
 	 * @return true if it is successfully added false if not
 	 */
 	public boolean addExpirationDate(LocalDate d){
-		if(this.isValidDate(d)){
-			this.setStartDate(d);
+		if(this.isAllowedToShow() == true){
+			return false;
+		}
+	    if(this.isModifiable()){
+	        if(this.isValidDate(d)){
+			    if(this.startDate != null && d.isBefore(this.startDate)){
+				    return false;
+		    	}
 
-			if(d.isBefore(this.startDate)){
+		    	this.setExpDate(d);
+			}
+	    }
+		if(this.isValidDate(d)){
+
+			if(this.startDate != null && d.isBefore(this.startDate)){
 				return false;
 			}
 			if(this.expDate != null){
@@ -269,6 +290,23 @@ public class Exercise extends CourseElement implements Serializable{
 		return false;
 	}
 	
+	
+	/**
+	 * Method that informs if the answers of an exercises are allowed to be shown
+	 * @return true if it is false if not
+	 */
+	public boolean isAllowedToShow(){
+		LocalDate now;
+		
+		now = LocalDate.now();
+		
+		if(this.getExpDate() == null){
+			return false;
+		}
+		
+		return now.isAfter(this.getExpDate());
+	}
+	
 	/**
 	 * Method that notifies students if the exercise is available to take
 	 * @return true if it is false if not
@@ -276,8 +314,14 @@ public class Exercise extends CourseElement implements Serializable{
 	public boolean canTakeExercise(Student s){
 		LocalDate now = LocalDate.now();
 		
-		if(this.takenExercise(s) == true){
+		if(this.isTakenExerciseByStudent(s) == true){
 			return false;
+		}
+		if(now.equals(this.startDate) || now.equals(this.expDate)){
+			if(this.isHidden() == true){
+				this.setHidden(false);
+			}
+			return true;
 		}
 		if(now.isAfter(this.startDate) && now.isBefore(this.expDate)){
 			if(this.isHidden() == true){
@@ -293,7 +337,7 @@ public class Exercise extends CourseElement implements Serializable{
 	 * @param s student that has taken the exercise (or not)
 	 * @return true if the exercise has been taken by the student
 	 */
-	public boolean takenExercise(Student s){
+	public boolean isTakenExerciseByStudent(Student s){
 		
 		for(Answer aux: this.answers){
 			if(aux.getStudent().equals(s)){
@@ -313,6 +357,10 @@ public class Exercise extends CourseElement implements Serializable{
 		int nQues;
 		int i;
 		
+		if(this.isTakenExerciseByStudent(s)){
+			return null;
+		}
+		
 		nQues = this.getQuestions().size();
 		
 		ans = new Answer(this, s, nQues);
@@ -325,17 +373,23 @@ public class Exercise extends CourseElement implements Serializable{
 		this.answers.add(ans);
 		s.getAnswers().add(ans);
 		
-		return null;
+		return ans;
 	}
 	
 	/**
 	 * Method that the student calls before sending his/her answers to cancel them.
 	 * @param a answer associated to a the exercise to cancel
 	 */
-	public void cancelExercise(Answer a){
-		a.getStudent().getAnswers().remove(a);
-		a.getExercise().getAnswers().remove(a);
-		return;
+	public boolean cancelExercise(Answer a){
+		if(a == null){
+			return false;
+		}
+		if(this.getAnswers().contains(a)){
+			a.getStudent().getAnswers().remove(a);
+			a.getExercise().getAnswers().remove(a);
+			return true;
+		}
+		return false;
 	}
 	
 	

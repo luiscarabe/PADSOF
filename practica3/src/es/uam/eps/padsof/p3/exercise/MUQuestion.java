@@ -75,6 +75,18 @@ public abstract class MUQuestion extends Question implements Serializable {
 		return opt;
 	}
 	
+	/**
+	 * Method that allows professors to randomly select the order of question
+	 * @return true if shuffles the questions false if not
+	 */
+	public boolean randomizeOrder(){
+		if(this.randomOrder == true){
+			Collections.shuffle(this.answers);
+			return true;
+		}
+		return false;
+	}
+	
 	public abstract boolean deleteOption(Option o);
 	
 	public abstract boolean deleteSolution(Option sol);

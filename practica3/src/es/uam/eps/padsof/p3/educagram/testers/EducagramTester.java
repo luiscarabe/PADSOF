@@ -16,7 +16,7 @@ import es.uam.eps.padsof.p3.user.Student;
 import es.uam.eps.padsof.p3.user.User;
 
 /**
- * @author Alejo, Luis
+ * @author Alejo Luis
  *
  */
 public class EducagramTester {
@@ -25,26 +25,12 @@ public class EducagramTester {
 	Student s, s1;
 	Course c, c1, c2;
 	
+	
 	@Before
 	public void setup() throws Exception{
 		edu = Educagram.getInstance();
 		
 		edu.readFile();
-		
-		s = edu.searchStudent("Javier Carrera");
-		
-		s1 = edu.searchStudent("Invalid User");
-		
-
-		
-		c2 = edu.searchCourse("ADSOF");
-
-		
-		u1 = edu.signIn("Roberto.Paz@aadu.es", "notValidPsw");
-		
-		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
-		
-		u2 = edu.signIn("teacher@teadu.com", "lovingPADSOF");
 	}
 	
 	/**
@@ -64,16 +50,27 @@ public class EducagramTester {
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#searchStudent(java.lang.String)}.
+	 * Test method for Search Student
 	 */
 	@Test
 	public void testSearchStudent() {
+		
+		s = edu.searchStudent("Javier Carrera");
 		assertEquals(s.getEmail(), "Javier.Carrera@aadu.es");
+	}
+	
+	/**
+	 * Test method for Invalid Search Student
+	 */
+	@Test
+	public void testInvSearchStudent() {
+		
+		s1 = edu.searchStudent("Invalid User");
 		assertNull(s1);
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#searchCourse(java.lang.String)}.
+	 * Test method for Search Course
 	 */
 	@Test
 	public void testSearchCourse() {
@@ -81,19 +78,49 @@ public class EducagramTester {
 		edu.getCourses().add(c);
 		c1 = edu.searchCourse("PADSOF");
 		assertEquals(c,c1);
-
+	}
+	
+	/**
+	 * Test method for Invalid Search Course
+	 */
+	@Test
+	public void testInvSearchCourse() {
+		c2 = edu.searchCourse("ADSOF");
 		assertNull(c2);
 	}
 	
 	/**
-	 * Test method for {@link es.uam.eps.padsof.p3.educagram.Educagram#signIn(java.lang.String, java.lang.String)}.
+	 * Test method for Sign In
 	 */
 	@Test
 	public void testSignIn() {
+		edu.signOut();
+		assertNull(edu.getCurrentUser());
+		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
 		assertEquals(u.getName(), "Roberto Paz");
-		assertNull(u1);
+		assertNotNull(edu.getCurrentUser());
+		
+	}
+	/**
+	 * Test method for TeacherSign In
+	 */
+	@Test
+	public void testTeachSignIn() {
+		assertNull(edu.getCurrentUser());
+		u2 = edu.signIn("teacher@teadu.com", "lovingPADSOF");
 		assertEquals(u2.getName(), "Teacher");
 		assertNotNull(edu.getCurrentUser());
+		
+	}
+	/**
+	 * Test method for Invalid Sign In
+	 */
+	@Test
+	public void testInvSignIn() {
+		assertNull(edu.getCurrentUser());
+		u1 = edu.signIn("Roberto.Paz@aadu.es", "notValidPsw");
+		assertNull(u1);
+		assertNull(edu.getCurrentUser());
 		
 	}
 	
@@ -102,6 +129,7 @@ public class EducagramTester {
 	 */
 	@Test
 	public void testSignOutCorrect(){
+		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
 		assertNotNull(edu.getCurrentUser());
 		assertTrue(edu.signOut());
 		assertNull(edu.getCurrentUser());
@@ -112,6 +140,7 @@ public class EducagramTester {
 	 */
 	@Test
 	public void testSignOutError(){
+		u = edu.signIn("Roberto.Paz@aadu.es", "Rerto");
 		assertNotNull(edu.getCurrentUser());
 		edu.setCurrentUser(null);
 		assertFalse(edu.signOut());

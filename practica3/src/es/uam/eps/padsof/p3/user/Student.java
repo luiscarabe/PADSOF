@@ -118,6 +118,7 @@ public class Student extends User implements Serializable{
 		
 		a = new Application(c, this);
 		this.appliedCourses.add(a);
+		c.getApplications().add(a);
 		
 		return true;
 	}

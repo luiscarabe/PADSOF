@@ -15,11 +15,11 @@ public class MultiQuestion extends MUQuestion implements Serializable{
 	private int numSol;
 	
 	/**
+	 * Constructor of MultiQuestion
 	 * @param title
 	 * @param weight
 	 * @param randomOrder
-	 * @param solution
-	 * @param numSol
+	 * @param exer
 	 */
 	public MultiQuestion(String title, double weight, boolean randomOrder, Exercise exer) {
 		super(title, weight, randomOrder, exer);

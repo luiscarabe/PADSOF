@@ -12,12 +12,13 @@ public class UniqQuestion extends MUQuestion implements Serializable{
 	private List<Option> solution;
 	
 	/**
+	 * Constructor of UniqQuestion
 	 * @param title
 	 * @param weight
-	 * @param answers
 	 * @param randomOrder
-	 * @param solution
+	 * @param exer
 	 */
+
 	public UniqQuestion(String title, double weight, boolean randomOrder, Exercise exer) {
 		super(title, weight, randomOrder, exer);
 		this.solution = new ArrayList<Option>();

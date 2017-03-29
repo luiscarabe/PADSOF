@@ -12,8 +12,10 @@ public class TFQuestion extends Question implements Serializable{
 	private List<Option> solution;
 
 	/**
+	 * Constructor of TFQuestion
 	 * @param title
 	 * @param weight
+	 * @param exer
 	 */
 	public TFQuestion(String title, double weight, Exercise exer) {
 		super(title, weight, exer);
